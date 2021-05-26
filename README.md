@@ -7,7 +7,7 @@ Yet another simple markdown editor component based on vanilla js & marked js
 - Compatible with all major browsers (IE8+), compatible Zepto.js and iPad;
 
 ## Contribute
-- [Fork the repository!](https://github.com/madeyoga/chunchunmaru-mde/fork)
+- [Fork the repository](https://github.com/madeyoga/chunchunmaru-mde.git)!
 - Clone your fork: git clone https://github.com/your-username/chunchunmaru-mde.git
 - Create your feature branch: git checkout -b my-new-feature
 - Commit your changes: git commit -am 'Add some feature'
