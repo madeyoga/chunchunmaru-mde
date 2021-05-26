@@ -1,6 +1,6 @@
 "use strict";
 
-function Chunchunmaru(containerId, settings)
+function chunchunmaru(containerId, settings)
 {
 	var defaultSettings = {
 		markdown: "",
@@ -139,6 +139,37 @@ function Chunchunmaru(containerId, settings)
 		this.textarea.selectionEnd = start + italicText.length;
 	}
 
+	this.addPrefixToSelectedLine = (prefix) => {
+		var textarea = this.textarea;
+		var selectionStart = textarea.selectionStart;
+		var selectionEnd = textarea.selectionEnd;
+		console.log(selectionStart);
+		console.log(selectionEnd);
+		if (selectionStart == selectionEnd) {
+			var lines = textarea.value.substr(0, selectionStart).split("\n");
+			console.log(lines);
+			lines[lines.length - 1] = prefix + lines[lines.length - 1];
+		}
+		else {
+			var lineStartIndex = textarea.value.substr(0, selectionStart).split("\n").length - 1;
+			var lineEndIndex = textarea.value.substr(0, selectionEnd).split("\n").length - 1;
+
+			var lines = textarea.value.split("\n");
+			if (lineStartIndex > lineEndIndex) {
+				var temp = lineEndIndex;
+				lineEndIndex = lineStartIndex;
+				lineStartIndex = temp;
+			}
+
+			while (lineStartIndex <= lineEndIndex) {
+				lines[lineStartIndex] = prefix + lines[lineStartIndex];
+				lineStartIndex += 1;
+			}
+		}
+		this.textarea.value = lines.join("\n");
+		this.textarea.focus();
+	}
+
 	// Keyboard & Undo Redo events
 	var undoState = [''];
 	var redoState = [];
@@ -192,8 +223,7 @@ function Chunchunmaru(containerId, settings)
 			this.hotkeys[keyboardEvent.key](keyboardEvent);
 		}
 		if (settings.livePreview) {
-			var dirtyHTML = marked(this.textarea.value)
-			console.log(dirtyHTML);
+			var dirtyHTML = marked(this.textarea.value);
 			this.previewContainer.innerHTML = DOMPurify.sanitize(dirtyHTML);
 		}
 	});
@@ -246,7 +276,7 @@ function Chunchunmaru(containerId, settings)
 		},
 		'blockquote': {
 			action: () => {
-
+				this.addPrefixToSelectedLine("> ");
 			},
 			icon: "mdi mdi-format-quote-close"
 		},
@@ -264,61 +294,61 @@ function Chunchunmaru(containerId, settings)
 		},
 		'ol': {
 			action: () => {
-
+				
 			},
 			icon: "mdi mdi-format-list-numbered"
 		},
 		'ul': {
 			action: () => {
-
+				this.addPrefixToSelectedLine("- ");
 			},
 			icon: "mdi mdi-format-list-bulleted"
 		},
 		'h1': {
 			action: () => {
-
+				this.addPrefixToSelectedLine("# ");
 			},
 			icon: "mdi mdi-format-header-1"
 		},
 		'h2': {
 			action: () => {
-
+				this.addPrefixToSelectedLine("## ");
 			},
 			icon: "mdi mdi-format-header-2"
 		},
 		'h3': {
 			action: () => {
-
+				this.addPrefixToSelectedLine("### ");
 			},
 			icon: "mdi mdi-format-header-3"
 		},
 		'h4': {
 			action: () => {
-
+				this.addPrefixToSelectedLine("#### ");
 			},
 			icon: "mdi mdi-format-header-4"
 		},
 		'h5': {
 			action: () => {
-
+				this.addPrefixToSelectedLine("##### ");
 			},
 			icon: "mdi mdi-format-header-5"
 		},
 		'h6': {
 			action: () => {
-
+				this.addPrefixToSelectedLine("###### ");
 			},
 			icon: "mdi mdi-format-header-6"
 		},
 		'undo': {
 			action: () => {
-
+				this.triggerUndo();
 			},
 			icon: "mdi mdi-undo"
 		},
 		'redo': {
 			action: () => {
-
+				this.triggerRedo();
 			},
 			icon: "mdi mdi-redo"
 		},
@@ -357,10 +387,8 @@ function Chunchunmaru(containerId, settings)
 	// Preview
 	if (settings.livePreview) {
 		this.previewContainer = document.querySelector(this.settings.livePreviewContainer);
-		var htmlValue = marked(this.textarea.value);
-		
-		// Purify
 
-		this.previewContainer.innerHTML = htmlValue;
+		var dirtyHTML = marked(this.textarea.value);
+		this.previewContainer.innerHTML = DOMPurify.sanitize(dirtyHTML);
 	}
 }
