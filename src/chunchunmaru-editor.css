@@ -144,3 +144,10 @@ textarea.chunchunmaru-editor::-webkit-scrollbar-thumb:hover {
 	
 	height: 18px;
 }
+
+/**
+ * Previews
+ * */
+.hljs {
+	padding: 22px!important;
+}
