@@ -146,7 +146,6 @@ function chunchunmaru(containerId, settings)
 
 		if (selectionStart == selectionEnd) {
 			var lines = textarea.value.substr(0, selectionStart).split("\n");
-			console.log(lines);
 			lines[lines.length - 1] = prefix + lines[lines.length - 1];
 		}
 		else {
@@ -177,7 +176,6 @@ function chunchunmaru(containerId, settings)
 		var order = 1;
 		if (selectionStart == selectionEnd) {
 			var lines = textarea.value.substr(0, selectionStart).split("\n");
-			console.log(lines);
 			lines[lines.length - 1] = order + lines[lines.length - 1];
 		}
 		else {
@@ -199,6 +197,10 @@ function chunchunmaru(containerId, settings)
 		}
 		this.textarea.value = lines.join("\n");
 		this.textarea.focus();
+	}
+
+	this.saveValueToInnerHTML = () => {
+		this.textarea.innerHTML = this.textarea.value;
 	}
 
 	// Keyboard & Undo Redo events
@@ -388,7 +390,6 @@ function chunchunmaru(containerId, settings)
 	this.initToolbar = () => {
 		var toolbars = this.settings.toolbars;
 		for (var toolName of toolbars) {
-			console.log()
 			if (toolName in buttons) {
 				var buttonData = buttons[toolName];
 
