@@ -1,10 +1,12 @@
 # chunchunmaru-mde
-**chunchumaru** **m**ark**d**own **e**ditor: Simple and lightweight markdown editor component based on vanilla js & marked.
+**chunchumaru** **m**ark**d**own **e**ditor: Simple and lightweight and responsive markdown editor component based on vanilla js & marked.
 
 ### Features
-- Support Standard Markdown / CommonMark and GFM (GitHub Flavored Markdown);
-- Full-featured: Real-time Preview, Image upload, Code syntax highlighting...;
-- Compatible with all major browsers (IE8+);
+Features in mind:
+- Support Standard Markdown / CommonMark and GFM (GitHub Flavored Markdown)
+- Full-featured: Real-time Preview, Image upload, Code syntax highlighting...
+- Support @mention
+- Compatible with all major browsers (IE8+)
 
 ## Download & Install
 Github Download
