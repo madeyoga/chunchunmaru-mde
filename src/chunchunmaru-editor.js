@@ -143,8 +143,7 @@ function chunchunmaru(containerId, settings)
 		var textarea = this.textarea;
 		var selectionStart = textarea.selectionStart;
 		var selectionEnd = textarea.selectionEnd;
-		console.log(selectionStart);
-		console.log(selectionEnd);
+
 		if (selectionStart == selectionEnd) {
 			var lines = textarea.value.substr(0, selectionStart).split("\n");
 			console.log(lines);
@@ -164,6 +163,38 @@ function chunchunmaru(containerId, settings)
 			while (lineStartIndex <= lineEndIndex) {
 				lines[lineStartIndex] = prefix + lines[lineStartIndex];
 				lineStartIndex += 1;
+			}
+		}
+		this.textarea.value = lines.join("\n");
+		this.textarea.focus();
+	}
+
+	this.addOrderToSelectedLine = (prefix) => {
+		var textarea = this.textarea;
+		var selectionStart = textarea.selectionStart;
+		var selectionEnd = textarea.selectionEnd;
+
+		var order = 1;
+		if (selectionStart == selectionEnd) {
+			var lines = textarea.value.substr(0, selectionStart).split("\n");
+			console.log(lines);
+			lines[lines.length - 1] = order + lines[lines.length - 1];
+		}
+		else {
+			var lineStartIndex = textarea.value.substr(0, selectionStart).split("\n").length - 1;
+			var lineEndIndex = textarea.value.substr(0, selectionEnd).split("\n").length - 1;
+
+			var lines = textarea.value.split("\n");
+			if (lineStartIndex > lineEndIndex) {
+				var temp = lineEndIndex;
+				lineEndIndex = lineStartIndex;
+				lineStartIndex = temp;
+			}
+
+			while (lineStartIndex <= lineEndIndex) {
+				lines[lineStartIndex] = `${order}. ` + lines[lineStartIndex];
+				lineStartIndex += 1;
+				order += 1;
 			}
 		}
 		this.textarea.value = lines.join("\n");
@@ -294,7 +325,7 @@ function chunchunmaru(containerId, settings)
 		},
 		'ol': {
 			action: () => {
-				
+				this.addOrderToSelectedLine();
 			},
 			icon: "mdi mdi-format-list-numbered"
 		},
