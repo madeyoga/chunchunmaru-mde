@@ -9,12 +9,18 @@
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.7.2/styles/dracula.min.css" integrity="sha512-UPcL+5Ec/OV1+OGGgpK9ZS1NLz/sXczHAYUkSaSMQjgIYufontU+rYGAkK9B//Oze4cFTLfLnzNtsI+cG2FwjQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@mdi/font@5.9.55/css/materialdesignicons.min.css">
 
-	<link rel="stylesheet" type="text/css" href="src/chunchunmaru-mde-dracula.css">
+	<link id="theme" rel="stylesheet" type="text/css" href="src/chunchunmaru-mde-default.css">
 </head>
 <body>
 <h1>Chunchunmaru Markdown Editor Demo</h1>
 
 <!-- <p contenteditable="true">This is an editable paragraph.</p> -->
+
+<h4 style="margin-bottom: 8px;">Change Theme</h4>
+<select id="theme-select" style="margin-bottom: 24px;">
+	<option value="src/chunchunmaru-mde-default.css">Default</option>
+	<option value="src/chunchunmaru-mde-dracula.css">Dracula</option>
+</select>
 
 <form action="#">
 	<div id="editor-container" name="editor-container">
@@ -34,6 +40,16 @@
 <script type="text/javascript">
 	var settings = { livePreviewContainer: "#preview" }
 	var editor = new chunchunmaru("editor-container", settings);
+</script>
+
+<script>
+	function switchTheme(event) {
+		var selectedValue = event.target.value;
+		var theme = document.getElementById('theme');
+		theme.href = selectedValue;
+	}
+
+	document.getElementById('theme-select').addEventListener('change', switchTheme);
 </script>
 </body>
 </html>
