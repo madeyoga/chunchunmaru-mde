@@ -3,6 +3,7 @@
 function chunchunmaru(containerId, settings)
 {
 	var defaultSettings = {
+		gfm: true,
 		markdown: "",
 		attributes: {
 			id: "editor",
@@ -42,7 +43,7 @@ function chunchunmaru(containerId, settings)
 	var settings = this.settings = Object.assign(defaultSettings, settings);
 
 	var markedOptions = this.markedOptions = {
-		gfm         : true,
+		gfm         : settings.gfm,
 		tables      : true,
 		breaks      : true,
 		pedantic    : false,
@@ -105,13 +106,13 @@ function chunchunmaru(containerId, settings)
 	}
 
 	// Actions
-	this.boldSelection = () => {
+	this.addBracketToSelection = (pre, post) => {
 		var textarea = this.textarea;
 		var content = textarea.value;
 		var start = textarea.selectionStart;
 		var end = textarea.selectionEnd;
 
-		var boldText = "**" + window.getSelection() + "**";
+		var boldText = pre + window.getSelection() + post;
 		
 		var preText = content.substring(0, start);
 		var postText = content.substring(end, textarea.value.length);
@@ -122,21 +123,16 @@ function chunchunmaru(containerId, settings)
 		this.textarea.selectionEnd = start + boldText.length;
 	}
 
-	this.italicSelection = () => {
-		var textarea = this.textarea;
-		var content = textarea.value;
-		var start = textarea.selectionStart;
-		var end = textarea.selectionEnd;
+	this.insertStringToCursor = (string) => {
+		var content = this.textarea.value;
+		var cursorPosition = this.textarea.selectionStart;
 
-		var italicText = "*" + window.getSelection() + "*";
-		
-		var preText = content.substring(0, start);
-		var postText = content.substring(end, textarea.value.length);
+		var preText = content.substring(0, cursorPosition);
+		var postText = content.substring(cursorPosition, content.length);
 
-		// new content
-		this.textarea.value = preText + italicText + postText;
-		this.textarea.selectionStart = start + italicText.length;
-		this.textarea.selectionEnd = start + italicText.length;
+		this.textarea.value = preText + string + postText;
+		this.textarea.selectionStart = cursorPosition + string.length;
+		this.textarea.selectionEnd = cursorPosition + string.length;
 	}
 
 	this.addPrefixToSelectedLine = (prefix) => {
@@ -211,27 +207,20 @@ function chunchunmaru(containerId, settings)
 	this.hotkeys = {
 		'b': (event) => {
 			if (event.ctrlKey) {
-				this.boldSelection();
+				this.addBracketToSelection("**", "**");
 			}
 		},
 
 		'i': (event) => {
 			if (event.ctrlKey) {
-				this.italicSelection();
+				this.addBracketToSelection("*", "*");
 			}
 		},
 
 		'Tab': (event) => {
-			var content = this.textarea.value;
-			var cursorPosition = this.textarea.selectionStart;
-
-			var preText = content.substring(0, cursorPosition);
-			var postText = content.substring(cursorPosition, content.length);
-
-			var tab = "    ";
-			this.textarea.value = preText + tab + postText;
-			this.textarea.selectionStart = cursorPosition + tab.length;
-			this.textarea.selectionEnd = cursorPosition + tab.length;
+			if (!event.ctrlKey && !event.shiftKey && !event.altKey) {
+				this.insertStringToCursor("    ");
+			}
 		}
 	};
 
@@ -291,13 +280,13 @@ function chunchunmaru(containerId, settings)
 	var buttons = {
 		"bold": {
 			action: () => {
-				this.boldSelection();
+				this.addBracketToSelection("**", "**");
 			},
 			icon: "mdi mdi-format-bold",
 		},
 		"italic": {
 			action: () => {
-				this.italicSelection();
+				this.addBracketToSelection("*", "*");
 			},
 			icon: "mdi mdi-format-italic",
 		},
