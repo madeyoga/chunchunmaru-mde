@@ -17,6 +17,7 @@
 
 .chunchunmaru-editor {
 	width: 100%;
+	min-height: 128px;
 	border: 0px solid lightgray;
 	border-top: 1px solid lightgray;
 	font-size: 16px;

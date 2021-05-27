@@ -21,9 +21,10 @@
 	color: #f8f8f2;
 	border: 0px solid #f8f8f2;
 	border-top: 1px solid #f8f8f2;
-
 	background: #282a36;
+
 	width: 100%;
+	min-height: 128px;
 	font-size: 14px;
 	letter-spacing: normal;
 	outline: none;
