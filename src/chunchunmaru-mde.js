@@ -10,11 +10,11 @@ function chunchunmaru(containerId, settings)
 			placeholder: "Start writting!",
 		},
 		livePreview: true,
-		livePreviewContainer: "preview",
+		livePreviewContainer: "",
 		livePreviewDelay: 2,
 		previewCodeHighlight: true,
 		saveHTML: false,
-		autoSave: true,
+		autoSave: false,
 		toolbars: [
 			'bold',
 			'italic',
