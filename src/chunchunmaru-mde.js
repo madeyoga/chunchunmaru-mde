@@ -112,18 +112,21 @@ function chunchunmaru(containerId, settings)
 		var start = textarea.selectionStart;
 		var end = textarea.selectionEnd;
 
-		var boldText = pre + window.getSelection() + post;
+		var selectedText = window.getSelection().toString();
+
+		var processedText = pre + selectedText + post;
 		
 		var preText = content.substring(0, start);
 		var postText = content.substring(end, textarea.value.length);
 
 		// new content
-		this.textarea.value = preText + boldText + postText;
-		this.textarea.selectionStart = start + boldText.length;
-		this.textarea.selectionEnd = start + boldText.length;
+		this.textarea.value = preText + processedText + postText;
+		this.textarea.focus();
+		this.textarea.selectionStart = start + pre.length + selectedText.length;
+		this.textarea.selectionEnd = start + pre.length + selectedText.length;
 	}
 
-	this.insertStringToCursor = (string) => {
+	this.insertString = (string) => {
 		var content = this.textarea.value;
 		var cursorPosition = this.textarea.selectionStart;
 
@@ -219,7 +222,7 @@ function chunchunmaru(containerId, settings)
 
 		'Tab': (event) => {
 			if (!event.ctrlKey && !event.shiftKey && !event.altKey) {
-				this.insertStringToCursor("    ");
+				this.insertString("    ");
 			}
 		}
 	};
@@ -292,7 +295,7 @@ function chunchunmaru(containerId, settings)
 		},
 		"link": {
 			action: () => {
-
+				this.addBracketToSelection("[", "](put_your_link_url_here)");
 			},
 			icon: "mdi mdi-link-variant"
 		},
