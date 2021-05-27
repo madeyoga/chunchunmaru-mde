@@ -2,7 +2,7 @@
 <html>
 <head>
 	<meta charset="utf-8">
-	<title>Testing</title>
+	<title>chunchunmaru-mde demo</title>
 	<meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
 
 	<!-- Dependencies -->
@@ -30,15 +30,9 @@
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.7.2/highlight.min.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 
-<script type="text/javascript" src="src/chunchunmaru-editor.js"></script>
+<script type="text/javascript" src="src/chunchunmaru-mde.js"></script>
 <script type="text/javascript">
-	var settings = {
-		tags: {
-			id: "editor",
-			name: "editor",
-		},
-		livePreviewContainer: "#preview",
-	}
+	var settings = { livePreviewContainer: "#preview" }
 	var editor = new chunchunmaru("editor-container", settings);
 </script>
 </body>
