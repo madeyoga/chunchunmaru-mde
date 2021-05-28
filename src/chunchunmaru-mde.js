@@ -345,7 +345,7 @@ function chunchunmaru(containerId, settings)
 		},
 		'code': {
 			action: () => {
-
+				this.addBracketToSelection("```python\n", "\n```");
 			},
 			icon: "mdi mdi-code-braces"
 		},
