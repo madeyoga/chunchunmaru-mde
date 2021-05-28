@@ -18,7 +18,6 @@ function chunchunmaru(containerId, settings)
 		gfm: true,
 		livePreview: false,
 		livePreviewContainer: "",
-		livePreviewDelay: 2,
 		markdown: "",
 		previewCodeHighlight: false,
 		sanitize: true,
@@ -101,7 +100,7 @@ function chunchunmaru(containerId, settings)
 
 	this.toolbar = document.createElement("div");
 
-	this.textarea = document.createElement("textarea");
+	this.textarea = this.container.getElementsByTagName('textarea')[0] || document.createElement("textarea");
 
 	this.textarea.value = settings.markdown;
 
