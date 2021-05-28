@@ -45,9 +45,9 @@ chunchunmaru markdown editor settings and default values:
 	},
 	autoSave: false,
 	gfm: true,
-	livePreview: false,
+	livePreview: false,		// Requires marked
 	livePreviewContainer: "",
-	previewCodeHighlight: false,
+	previewCodeHighlight: false,	// Requires highlight.js
 	sanitize: true,
 	saveHTML: false,
 	toolbars: [			// Remove to exclude button.
