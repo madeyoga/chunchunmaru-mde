@@ -77,9 +77,9 @@ chunchunmaru markdown editor settings and default values:
 ```
 
 ## Dependents
-- [marked.js](https://marked.js.org/) / [marked repo](https://github.com/markedjs/marked)
-- [highlight.js](https://highlightjs.org/) / [highlight.js repo](https://github.com/highlightjs/highlight.js)
-- [DOMPurify](https://github.com/cure53/DOMPurify)
+- Live preview: [marked.js](https://marked.js.org/) / [marked repo](https://github.com/markedjs/marked)
+- Code syntax highlighting: [highlight.js](https://highlightjs.org/) / [highlight.js repo](https://github.com/highlightjs/highlight.js)
+- Sanitize output HTML: [DOMPurify](https://github.com/cure53/DOMPurify)
 - [Material Design Icons](https://materialdesignicons.com/)
 
 ## Contribute
