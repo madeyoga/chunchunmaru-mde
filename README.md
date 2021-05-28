@@ -47,7 +47,7 @@ chunchunmaru markdown editor options and default values:
 	previewCodeHighlight: false,
 	sanitize: true,
 	saveHTML: false,
-	toolbars: [
+	toolbars: [			// Remove to exclude button.
 	  'bold',
 	  'italic',
 	  '|',
