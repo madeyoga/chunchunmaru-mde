@@ -21,12 +21,12 @@ Github Download
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@mdi/font@5.9.55/css/materialdesignicons.min.css">
 
 <!-- Load chunchunmaru theme -->
-<link rel="stylesheet" type="text/css" href="src/chunchunmaru-mde-dracula.css">
+<link rel="stylesheet" type="text/css" href="dist/chunchunmaru-mde-dracula.min.css">
 
 <div id="editor-container" name="editor-container"></div>
 
-<script type="text/javascript" src="purify.min.js"></script>
-<script type="text/javascript" src="src/chunchunmaru-editor.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/2.2.7/purify.min.js"></script>
+<script type="text/javascript" src="dist/chunchunmaru-mde.min.js"></script>
 <script type="text/javascript">
 	var settings = {}
 	var editor = new chunchunmaru("editor-container", settings);
