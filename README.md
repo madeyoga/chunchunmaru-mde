@@ -3,11 +3,12 @@
 
 ### Features
 - Support Standard Markdown / CommonMark and GFM (GitHub Flavored Markdown)
-- Full-featured: Real-time Preview, Image upload, Code syntax highlighting...
+- Full-featured: Real-time Preview, Code syntax highlighting...
 - Compatible with all major browsers (IE8+).
 
 Features in mind:
 - Support @mention
+- Drag & drop image upload
 
 [Demo page](https://madeyoga.github.io/chunchunmaru-mde/)
 
