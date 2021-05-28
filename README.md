@@ -18,7 +18,7 @@ Github Download
 ## Usages
 **Create a basic chunchunmaru markdown editor**
 ```html
-<link rel="stylesheet" href="@mdi/font@5.9.55/css/materialdesignicons.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@mdi/font@5.9.55/css/materialdesignicons.min.css">
 
 <!-- Load chunchunmaru theme -->
 <link rel="stylesheet" type="text/css" href="src/chunchunmaru-mde-dracula.css">
