@@ -2,20 +2,27 @@
 
 function chunchunmaru(containerId, settings)
 {
+	if (containerId === undefined) {
+		throw 'First parameter, container id, cannot be null.';
+	}
+
+	settings = settings || {};
+
 	var defaultSettings = {
-		gfm: true,
-		markdown: "",
 		attributes: {
 			id: "editor",
 			name: "editor",
 			placeholder: "Start writting!",
 		},
-		livePreview: true,
+		autoSave: false,
+		gfm: true,
+		livePreview: false,
 		livePreviewContainer: "",
 		livePreviewDelay: 2,
-		previewCodeHighlight: true,
+		markdown: "",
+		previewCodeHighlight: false,
+		sanitize: true,
 		saveHTML: false,
-		autoSave: false,
 		toolbars: [
 			'bold',
 			'italic',
@@ -25,6 +32,7 @@ function chunchunmaru(containerId, settings)
 			'code',
 			'image',
 			'|',
+			'center',
 			'ol',
 			'ul',
 			'|',
@@ -42,33 +50,42 @@ function chunchunmaru(containerId, settings)
 
 	var settings = this.settings = Object.assign(defaultSettings, settings);
 
-	var markedOptions = this.markedOptions = {
-		gfm         : settings.gfm,
-		tables      : true,
-		breaks      : true,
-		pedantic    : false,
-		smartLists  : true,
-		smartypants : false,
-		highlight: (settings.previewCodeHighlight) ? function(code, lang) {
-			const language = hljs.getLanguage(lang) ? lang : 'plaintext';
-			return hljs.highlight(code, { language }).value;
-		} : false,
-		langPrefix: 'hljs lang-',
-	};
-
 	// Dependencies
-	if (marked === undefined) {
-		throw 'markedjs is not defined';
-	}
-	else {
+	if (settings.livePreview) {
+		this.previewContainer = document.querySelector(this.settings.livePreviewContainer);
+
+		if (typeof marked === "undefined") {
+			throw 'marked is not defined';
+		}
+
+		if (settings.previewCodeHighlight) {
+			if (typeof hljs === "undefined") {
+				throw 'highlight.js is not defined';
+			}
+		}
+
+		var markedOptions = this.markedOptions = {
+			gfm         : settings.gfm,
+			tables      : true,
+			breaks      : true,
+			pedantic    : false,
+			smartLists  : true,
+			smartypants : false,
+			highlight: settings.previewCodeHighlight ? function(code, lang) {
+				const language = hljs.getLanguage(lang) ? lang : 'plaintext';
+				return hljs.highlight(code, { language }).value;
+			} : false,
+			langPrefix: settings.previewCodeHighlight ? 'hljs lang-' : "lang-",
+		};
+
 		marked.setOptions(markedOptions);
 	}
 
-	if (DOMPurify === undefined) {
-		throw 'DOMPurify is not defined';
-	}
-	else {
-		// Check iframe src, accept only Youtube embed.
+	if (settings.sanitize) {
+		if (typeof DOMPurify === "undefined") {
+			throw 'DOMPurify is not defined';
+		}
+		// add hook to check iframe src, accept only Youtube embed.
 		DOMPurify.addHook('uponSanitizeElement', (node, data) => {
 			if (data.tagName === 'iframe') {
 				const src = node.getAttribute('src') || ''
@@ -99,11 +116,6 @@ function chunchunmaru(containerId, settings)
 
 	this.container.appendChild(this.toolbar);
 	this.container.appendChild(this.textarea);
-
-	// Methods
-	this.markdownToHTML = (markdown) => {
-		
-	}
 
 	// Actions
 	this.addBracketToSelection = (pre, post) => {
@@ -198,8 +210,28 @@ function chunchunmaru(containerId, settings)
 		this.textarea.focus();
 	}
 
-	this.saveValueToInnerHTML = () => {
+	this.saveMarkdownToInnerHTML = () => {
 		this.textarea.innerHTML = this.textarea.value;
+	}
+
+	this.getHTML = () => {
+		var dirtyHTML = marked(this.textarea.value);
+		if (settings.sanitize) {
+			var cleanHTML = DOMPurify.sanitize(dirtyHTML);
+			return cleanHTML;
+		}
+		else {
+			return dirtyHTML;
+		}
+	}
+
+	this.markdownToHTML = (markdown) => {
+		var dirtyHTML = marked(markdown);
+		if (settings.sanitize) {
+			var cleanHTML = DOMPurify.sanitize(dirtyHTML);
+			return cleanHTML;
+		}
+		return dirtyHTML;
 	}
 
 	// Keyboard & Undo Redo events
@@ -248,9 +280,9 @@ function chunchunmaru(containerId, settings)
 			this.hotkeys[keyboardEvent.key](keyboardEvent);
 		}
 		if (settings.livePreview) {
-			var dirtyHTML = marked(this.textarea.value);
-			this.previewContainer.innerHTML = DOMPurify.sanitize(dirtyHTML);
+			this.previewContainer.innerHTML = this.getHTML();
 		}
+		this.textarea.innerHTML = this.textarea.value;
 	});
 
 	this.textarea.addEventListener('keydown', (keyboardEvent) => {
@@ -295,7 +327,7 @@ function chunchunmaru(containerId, settings)
 		},
 		"link": {
 			action: () => {
-				this.addBracketToSelection("[", "](put_your_link_url_here)");
+				this.addBracketToSelection("[link_", "](put_your_link_url_here)");
 			},
 			icon: "mdi mdi-link-variant"
 		},
@@ -313,9 +345,15 @@ function chunchunmaru(containerId, settings)
 		},
 		'image': {
 			action: () => {
-
+				this.addBracketToSelection("![image_", "](put_your_image_url_here)");
 			},
 			icon: "mdi mdi-image"
+		},
+		'center': {
+			action: () => {
+				this.addBracketToSelection("<div align='center'>", "</div>");
+			},
+			icon: "mdi mdi-format-align-center"
 		},
 		'ol': {
 			action: () => {
@@ -410,9 +448,15 @@ function chunchunmaru(containerId, settings)
 
 	// Preview
 	if (settings.livePreview) {
-		this.previewContainer = document.querySelector(this.settings.livePreviewContainer);
-
-		var dirtyHTML = marked(this.textarea.value);
-		this.previewContainer.innerHTML = DOMPurify.sanitize(dirtyHTML);
+		this.previewContainer.innerHTML = this.getHTML();
 	}
+}
+
+if (typeof require === "function" && typeof exports === "object" && typeof module === "object")
+{
+	module.exports = chunchunmaru;
+}
+else
+{ 
+	window.chunchunmaru = chunchunmaru;
 }
