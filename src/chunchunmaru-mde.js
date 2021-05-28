@@ -10,15 +10,14 @@ function chunchunmaru(containerId, settings)
 
 	var defaultSettings = {
 		attributes: {
-			id: "editor",
-			name: "editor",
+			id: "chunchunmaru-textarea",
+			name: "chunchunmaru-textarea",
 			placeholder: "Start writting!",
 		},
 		autoSave: false,
 		gfm: true,
 		livePreview: false,
 		livePreviewContainer: "",
-		markdown: "",
 		previewCodeHighlight: false,
 		sanitize: true,
 		saveHTML: false,
@@ -102,11 +101,11 @@ function chunchunmaru(containerId, settings)
 
 	this.textarea = this.container.getElementsByTagName('textarea')[0] || document.createElement("textarea");
 
-	this.textarea.value = settings.markdown;
-
 	for (var attr in settings.attributes) {
 		var value = settings.attributes[attr];
-		this.textarea.setAttribute(attr, value);
+		if (!this.textarea.getAttribute(attr)) {
+			this.textarea.setAttribute(attr, value);
+		}
 	}
 
 	this.container.className += "chunchumaru-container";
