@@ -50,7 +50,7 @@ chunchunmaru markdown editor settings and default values:
 	previewCodeHighlight: false,	// Requires highlight.js
 	sanitize: true,
 	saveHTML: false,
-	toolbars: [			// Remove to exclude button.
+	toolbars: [			// Remove item to exclude.
 	  'bold',
 	  'italic',
 	  '|',
