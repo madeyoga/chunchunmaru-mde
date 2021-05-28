@@ -90,7 +90,7 @@ function chunchunmaru(containerId, settings)
 			if (data.tagName === 'iframe') {
 				const src = node.getAttribute('src') || ''
 				if (!src.startsWith('https://www.youtube.com/embed/')) {
-					return node.parentNode?.removeChild(node)
+					return node.parentNode.removeChild(node);
 				}
 			}
 		});
