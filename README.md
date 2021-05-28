@@ -23,7 +23,7 @@ Github Download
 <!-- Load chunchunmaru theme -->
 <link rel="stylesheet" type="text/css" href="dist/chunchunmaru-mde-dracula.min.css">
 
-<div id="editor-container" name="editor-container"></div>
+<div id="editor-container"></div>
 
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/2.2.7/purify.min.js"></script>
 <script type="text/javascript" src="dist/chunchunmaru-mde.min.js"></script>
