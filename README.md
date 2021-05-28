@@ -2,11 +2,14 @@
 **chunchunmaru** **m**ark**d**own **e**ditor: Simple and lightweight and responsive markdown editor component based on vanilla js & marked.
 
 ### Features
-Features in mind:
 - Support Standard Markdown / CommonMark and GFM (GitHub Flavored Markdown)
 - Full-featured: Real-time Preview, Image upload, Code syntax highlighting...
+- Compatible with all major browsers (IE8+).
+
+Features in mind:
 - Support @mention
-- Compatible with all major browsers (IE8+)
+
+[Demo page](https://madeyoga.github.io/chunchunmaru-mde/)
 
 ## Download & Install
 Github Download
@@ -29,8 +32,8 @@ Github Download
 </script>
 ```
 
-### Options
-chunchunmaru markdown editor options and default values:
+### Settings
+chunchunmaru markdown editor settings and default values:
 
 ```js
 {
@@ -43,7 +46,6 @@ chunchunmaru markdown editor options and default values:
 	gfm: true,
 	livePreview: false,
 	livePreviewContainer: "",
-	markdown: "",			// initial markdown text.
 	previewCodeHighlight: false,
 	sanitize: true,
 	saveHTML: false,
