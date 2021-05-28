@@ -1,0 +1,24 @@
+{
+  "name": "chunchunmaru-mde",
+  "version": "0.0.1",
+  "description": "Simple markdown editor based on vanilla js and marked",
+  "main": "src/chunchunmaru-mde.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/madeyoga/chunchunmaru-mde.git"
+  },
+  "keywords": [
+    "simple",
+    "markdown",
+    "editor"
+  ],
+  "author": "MadeY <yeogaa02@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/madeyoga/chunchunmaru-mde/issues"
+  },
+  "homepage": "https://github.com/madeyoga/chunchunmaru-mde#readme"
+}
