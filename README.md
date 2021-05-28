@@ -3,11 +3,12 @@
 
 ### Features
 - Support Standard Markdown / CommonMark and GFM (GitHub Flavored Markdown)
-- Full-featured: Real-time Preview, Image upload, Code syntax highlighting...
+- Full-featured: Real-time Preview, Code syntax highlighting...
 - Compatible with all major browsers (IE8+).
 
 Features in mind:
 - Support @mention
+- Drag & drop image upload
 
 [Demo page](https://madeyoga.github.io/chunchunmaru-mde/)
 
@@ -44,9 +45,9 @@ chunchunmaru markdown editor settings and default values:
 	},
 	autoSave: false,
 	gfm: true,
-	livePreview: false,
+	livePreview: false,		// Requires marked
 	livePreviewContainer: "",
-	previewCodeHighlight: false,
+	previewCodeHighlight: false,	// Requires highlight.js
 	sanitize: true,
 	saveHTML: false,
 	toolbars: [			// Remove to exclude button.
@@ -76,9 +77,9 @@ chunchunmaru markdown editor settings and default values:
 ```
 
 ## Dependents
-- [marked.js](https://marked.js.org/) / [marked repo](https://github.com/markedjs/marked)
-- [highlight.js](https://highlightjs.org/) / [highlight.js repo](https://github.com/highlightjs/highlight.js)
-- [DOMPurify](https://github.com/cure53/DOMPurify)
+- Live preview: [marked.js](https://marked.js.org/) / [marked repo](https://github.com/markedjs/marked)
+- Code syntax highlighting: [highlight.js](https://highlightjs.org/) / [highlight.js repo](https://github.com/highlightjs/highlight.js)
+- Sanitize output HTML: [DOMPurify](https://github.com/cure53/DOMPurify)
 - [Material Design Icons](https://materialdesignicons.com/)
 
 ## Contribute
