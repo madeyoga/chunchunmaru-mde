@@ -48,7 +48,9 @@ function chunchunmaru(containerId, settings)
 
 	var settings = this.settings = Object.assign(defaultSettings, settings);
 
-	// Dependencies
+	/**
+	 * Dependents check
+	 */
 	if (settings.livePreview) {
 		this.previewContainer = document.querySelector(this.settings.livePreviewContainer);
 
@@ -94,7 +96,9 @@ function chunchunmaru(containerId, settings)
 		});
 	}
 
-	// Load elements
+	/**
+	 * Load Elements
+	 */
 	this.container = document.getElementById(containerId);
 
 	this.toolbar = document.createElement("div");
@@ -115,7 +119,9 @@ function chunchunmaru(containerId, settings)
 	this.container.appendChild(this.toolbar);
 	this.container.appendChild(this.textarea);
 
-	// Actions
+	/**
+	 * Methods
+	 */
 	this.addBracketToSelection = (pre, post) => {
 		var textarea = this.textarea;
 		var content = textarea.value;
@@ -232,7 +238,9 @@ function chunchunmaru(containerId, settings)
 		return dirtyHTML;
 	}
 
-	// Keyboard & Undo Redo events
+	/**
+	 * Keyboard & Undo Redo events
+	 */
 	var undoState = [''];
 	var redoState = [];
 	var maxSaveThreshold = 20;
@@ -349,7 +357,7 @@ function chunchunmaru(containerId, settings)
 		},
 		'center': {
 			action: () => {
-				this.addBracketToSelection("<div align='center'>", "</div>");
+				this.addBracketToSelection("<div align='center'>\n\n", "\n\n</div>");
 			},
 			icon: "mdi mdi-format-align-center"
 		},
