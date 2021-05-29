@@ -18,8 +18,6 @@ Github Download
 ## Usages
 **Create a basic chunchunmaru markdown editor**
 ```html
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@mdi/font@5.9.55/css/materialdesignicons.min.css">
-
 <!-- Load chunchunmaru theme -->
 <link rel="stylesheet" type="text/css" href="dist/chunchunmaru-mde-dracula.min.css">
 
@@ -43,6 +41,8 @@ chunchunmaru markdown editor settings and default values:
 	  name: "editor",
 	  placeholder: "Start writting!",
 	},
+	atLink: false,
+	atLinkBase: 'https://github.com/',
 	autoSave: false,
 	gfm: true,
 	livePreview: false,		// Requires marked
