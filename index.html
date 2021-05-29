@@ -33,7 +33,13 @@
 <h1>Chunchunmaru Markdown Editor Demo</h1>
 
 <!-- <p contenteditable="true">This is an editable paragraph.</p> -->
+<h1>Minimum settings</h1>
+<div id="minimum-editor-container" name="minimum-editor-container">
+	<!-- Server-side render markdown text -->
+	<textarea name="test" id="test" cols="30" rows="5"></textarea>
+</div>
 
+<h1>Full Featured</h1>
 <h4 style="margin-bottom: 8px;">Change Theme</h4>
 <select id="theme-select" style="margin-bottom: 24px;">
 	<option value="src/chunchunmaru-mde-default.css">Default</option>
@@ -42,10 +48,10 @@
 
 <div id="editor-container" name="editor-container">
 	<!-- Server-side render markdown text -->
-	<textarea name="test" id="test" cols="30" rows="10">Text from server</textarea>
+	<textarea name="test" id="test" cols="30" rows="5">Text from server</textarea>
 </div>
 
-<h1>Preview:</h1>
+<h2>Preview:</h2>
 
 <div id="preview"></div>
 <!-- Dependencies -->
@@ -55,6 +61,22 @@
 
 <script type="text/javascript" src="src/chunchunmaru-mde.js"></script>
 <script type="text/javascript">
+	var minimumSettings = {
+		gfm: false,
+		livePreview: false,
+		atLink: false,
+		sanitize: false,
+		toolbar: [
+			'bold',
+			'italic',
+			'|',
+			'link',
+			'blockquote',
+			'image',
+		]
+	}
+	var minimumEditor = new chunchunmaru("minimum-editor-container", minimumSettings);
+
 	var settings = {
 		livePreview: true,
 		livePreviewContainer: "#preview",
