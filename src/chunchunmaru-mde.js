@@ -60,6 +60,64 @@ function chunchunmaru(containerId, settings)
         pageBreak: /^\[[=]{8,}\]$/
     };
 
+	this.loadScript = function(filepath, callback, into) {
+        into = into || "body";
+        callback = callback || function() {};
+
+        var script = document.createElement("script");
+        script.type = "text/javascript";        
+		script.src = filepath;
+
+		var isIE = (navigator.appName == "Microsoft Internet Explorer");
+    	var isIE8 = (isIE && navigator.appVersion.match(/8./i) == "8.");
+
+        if (isIE8) {            
+            script.onreadystatechange = function() {
+                if(script.readyState) {
+                    if (script.readyState === "loaded" || script.readyState === "complete") {
+                        script.onreadystatechange = null; 
+                        callback();
+                    }
+                } 
+            };
+        }
+        else {
+            script.onload = function() {
+                callback();
+            };
+        }
+ 
+        if (into === "body") {
+            document.getElementsByTagName("body")[0].appendChild(script);
+		} 
+		else {
+            document.body.appendChild(script);
+        }
+	};
+
+	this.loadCSS = function(filepath, callback, into) {
+        into = into || "head";        
+        callback = callback || function() {};
+        
+        var css = document.createElement("link");
+        css.type = "text/css";
+        css.rel = "stylesheet";
+        css.onload = css.onreadystatechange = function() {
+            callback();
+        };
+
+        css.href = filepath;
+
+        if(into === "head") {
+            document.getElementsByTagName("head")[0].appendChild(css);
+		} 
+		else {
+            document.body.appendChild(css);
+        }
+    };
+
+	this.loadScript("https://code.iconify.design/1/1.0.7/iconify.min.js");
+
 	/**
 	 * Dependents check
 	 */
