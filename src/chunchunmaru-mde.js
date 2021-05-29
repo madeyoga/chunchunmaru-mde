@@ -355,114 +355,143 @@ function chunchunmaru(containerId, settings)
 	});
 
 	// Toolbar
-	var buttons = {
+	var buttons = this.buttons = {
 		"bold": {
 			action: () => {
 				this.addBracketToSelection("**", "**");
 			},
 			icon: "mdi mdi-format-bold",
+			name: "format_bold",
+			title: "Bold selection Ctrl + B"
 		},
 		"italic": {
 			action: () => {
 				this.addBracketToSelection("*", "*");
 			},
 			icon: "mdi mdi-format-italic",
+			name: "format_italic",
+			title: "Italic selection Ctrl + I"
 		},
 		"link": {
 			action: () => {
 				this.addBracketToSelection("[link_", "](put_your_link_url_here)");
 			},
-			icon: "mdi mdi-link-variant"
+			icon: "mdi mdi-link-variant",
+			name: "link", 
+			title: "Add link Ctrl + L"
 		},
 		'blockquote': {
 			action: () => {
 				this.addPrefixToSelectedLine("> ");
 			},
-			icon: "mdi mdi-format-quote-close"
+			icon: "mdi mdi-format-quote-close",
+			name: "format_quote",
+			title: "Blockquote Ctrl + Q"
 		},
 		'code': {
 			action: () => {
 				this.addBracketToSelection("```python\n", "\n```");
 			},
-			icon: "mdi mdi-code-braces"
+			icon: "mdi mdi-code-braces",
+			name: "code",
+			title: "Code sample Ctrl + K"
 		},
 		'image': {
 			action: () => {
 				this.addBracketToSelection("![image](", ")");
 			},
-			icon: "mdi mdi-image"
+			icon: "mdi mdi-image",
+			name: "image",
+			title: "Image Ctrl + G"
 		},
 		'uploadImage': {
 			action: () => {
 				this.addBracketToSelection("![image](", ")");
 			},
-			icon: "mdi mdi-image-plus"
+			icon: "mdi mdi-image-plus",
+			name: "add_photo_alternate",
+			title: "Upload Image"
 		},
 		'center': {
 			action: () => {
 				this.addBracketToSelection("<div align='center'>\n\n", "\n\n</div>");
 			},
-			icon: "mdi mdi-format-align-center"
+			icon: "mdi mdi-format-align-center",
+			name: "format_align_center"
 		},
 		'ol': {
 			action: () => {
 				this.addOrderToSelectedLine();
 			},
-			icon: "mdi mdi-format-list-numbered"
+			icon: "mdi mdi-format-list-numbered",
+			name: "format_list_numbered",
+			title: "Numbered List Ctrl + O"
 		},
 		'ul': {
 			action: () => {
 				this.addPrefixToSelectedLine("- ");
 			},
-			icon: "mdi mdi-format-list-bulleted"
+			icon: "mdi mdi-format-list-bulleted",
+			name: "format_list_bulleted",
+			title: "Bulleted List Ctrl + U"
 		},
 		'h1': {
 			action: () => {
 				this.addPrefixToSelectedLine("# ");
 			},
-			icon: "mdi mdi-format-header-1"
+			icon: "mdi mdi-format-header-1",
+			name: "title"
 		},
 		'h2': {
 			action: () => {
 				this.addPrefixToSelectedLine("## ");
 			},
-			icon: "mdi mdi-format-header-2"
+			icon: "mdi mdi-format-header-2",
+			name: "title"
 		},
 		'h3': {
 			action: () => {
 				this.addPrefixToSelectedLine("### ");
 			},
-			icon: "mdi mdi-format-header-3"
+			icon: "mdi mdi-format-header-3",
+			name: "title"
 		},
 		'h4': {
 			action: () => {
 				this.addPrefixToSelectedLine("#### ");
 			},
-			icon: "mdi mdi-format-header-4"
+			icon: "mdi mdi-format-header-4",
+			name: "title"
 		},
 		'h5': {
 			action: () => {
 				this.addPrefixToSelectedLine("##### ");
 			},
-			icon: "mdi mdi-format-header-5"
+			icon: "mdi mdi-format-header-5",
+			name: "title"
 		},
 		'h6': {
 			action: () => {
 				this.addPrefixToSelectedLine("###### ");
 			},
-			icon: "mdi mdi-format-header-6"
+			icon: "mdi mdi-format-header-6",
+			name: "title"
 		},
 		'undo': {
 			action: () => {
 				this.triggerUndo();
 			},
-			icon: "mdi mdi-undo"
+			icon: "mdi mdi-undo",
+			name: "undo",
+			title: "Undo Ctrl + Z"
 		},
 		'redo': {
 			action: () => {
 				this.triggerRedo();
 			},
-			icon: "mdi mdi-redo"
+			icon: "mdi mdi-redo",
+			name: "redo",
+			title: "Redo Ctrl + Y"
 		},
 	}
 
@@ -472,11 +501,15 @@ function chunchunmaru(containerId, settings)
 			if (toolName in buttons) {
 				var buttonData = buttons[toolName];
 
-				var icon = document.createElement("i");
-				icon.className += "toolbar-button-icon " + buttonData.icon;
-				
+				// Iconify
+				var icon = document.createElement("span");
+				icon.className += "iconify toolbar-button-icon "
+				icon.setAttribute("data-icon", buttonData.icon.slice(4));
+				icon.setAttribute("data-inline", "false");
+
 				var button = document.createElement("button");
 				button.onclick = buttonData.action;
+				button.title = buttonData.title;
 				button.type ="button";
 				button.appendChild(icon);
 
