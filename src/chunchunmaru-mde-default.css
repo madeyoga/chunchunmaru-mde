@@ -120,7 +120,6 @@ textarea.chunchunmaru-editor::-webkit-scrollbar-thumb:hover {
 	align-items: center;
     display: inline-flex;
     font-feature-settings: "liga";
-    font-size: 24px;
     justify-content: center;
     letter-spacing: normal;
     line-height: 1;
@@ -130,9 +129,8 @@ textarea.chunchunmaru-editor::-webkit-scrollbar-thumb:hover {
     vertical-align: middle;
 	-webkit-user-select: none;
 	
-	height: 18px;
-    font-size: 18px;
-    width: 18px;
+    font-size: 24px;
+	color: #5f6368;
 }
 
 .toolbar-button-divider {
