@@ -7,9 +7,8 @@
 
 	<!-- Dependencies -->
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.7.2/styles/dracula.min.css" integrity="sha512-UPcL+5Ec/OV1+OGGgpK9ZS1NLz/sXczHAYUkSaSMQjgIYufontU+rYGAkK9B//Oze4cFTLfLnzNtsI+cG2FwjQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@mdi/font@5.9.55/css/materialdesignicons.min.css">
 
-	<link id="theme" rel="stylesheet" type="text/css" href="dist/chunchunmaru-mde-default.min.css">
+	<link id="theme" rel="stylesheet" type="text/css" href="src/chunchunmaru-mde-default.css">
 
 	<style>
 		td, th {
@@ -54,12 +53,14 @@
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.7.2/highlight.min.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 
-<script type="text/javascript" src="dist/chunchunmaru-mde.min.js"></script>
+<script type="text/javascript" src="src/chunchunmaru-mde.js"></script>
 <script type="text/javascript">
 	var settings = {
 		livePreview: true,
 		livePreviewContainer: "#preview",
 		previewCodeHighlight: true,
+		atLink: true,
+		atLinkBase: "https://github.com/"
 	}
 	var editor = new chunchunmaru("editor-container", settings);
 </script>
