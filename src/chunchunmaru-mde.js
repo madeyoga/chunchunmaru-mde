@@ -14,6 +14,8 @@ function chunchunmaru(containerId, settings)
 			name: "chunchunmaru-textarea",
 			placeholder: "Start writting!",
 		},
+		atLink: false,
+		atLinkBase: 'https://github.com/',
 		autoSave: false,
 		gfm: true,
 		livePreview: false,
@@ -48,6 +50,16 @@ function chunchunmaru(containerId, settings)
 
 	var settings = this.settings = Object.assign(defaultSettings, settings);
 
+	this.regexs = {
+        atLink: /@(\w+)/g,
+        email: /(\w+)@(\w+)\.(\w+)\.?(\w+)?/g,
+        emailLink: /(mailto:)?([\w\.\_]+)@(\w+)\.(\w+)\.?(\w+)?/g,
+        emoji: /:([\w\+-]+):/g,
+        emojiDatetime: /(\d{2}:\d{2}:\d{2})/g,
+        twemoji: /:(tw-([\w]+)-?(\w+)?):/g,
+        pageBreak: /^\[[=]{8,}\]$/
+    };
+
 	/**
 	 * Dependents check
 	 */
@@ -64,13 +76,38 @@ function chunchunmaru(containerId, settings)
 			}
 		}
 
+		var markedRenderer = new marked.Renderer();
+		var atLinkReg = this.regexs.atLink;
+		var emailReg = this.regexs.email;
+
+		// atLink Renderer
+		markedRenderer.paragraph = (text) => {
+            if (settings.atLink) {
+
+                if (atLinkReg.test(text))  {
+                    text = text.replace(emailReg, function($1, $2, $3, $4) {
+                        return $1.replace(/@/g, "_#_&#64;_#_");
+                    });
+
+                    text = text.replace(atLinkReg, function($1, $2) {
+                        return "<a href=\"" + settings.atLinkBase + "" + $2 + "\" title=\"&#64;" + $2 + "\" class=\"at-link\">" + $1 + "</a>";
+                    }).replace(/_#_&#64;_#_/g, "@");
+				}
+
+                return text;
+            }
+
+            return text;
+		};
+
 		var markedOptions = this.markedOptions = {
-			gfm         : settings.gfm,
-			tables      : true,
-			breaks      : true,
-			pedantic    : false,
-			smartLists  : true,
-			smartypants : false,
+			renderer: markedRenderer,
+			gfm: settings.gfm,
+			tables: true,
+			breaks: true,
+			pedantic: false,
+			smartLists: true,
+			smartypants: false,
 			highlight: settings.previewCodeHighlight ? function(code, lang) {
 				const language = hljs.getLanguage(lang) ? lang : 'plaintext';
 				return hljs.highlight(code, { language }).value;
@@ -351,9 +388,15 @@ function chunchunmaru(containerId, settings)
 		},
 		'image': {
 			action: () => {
-				this.addBracketToSelection("![image_", "](put_your_image_url_here)");
+				this.addBracketToSelection("![image](", ")");
 			},
 			icon: "mdi mdi-image"
+		},
+		'uploadImage': {
+			action: () => {
+				this.addBracketToSelection("![image](", ")");
+			},
+			icon: "mdi mdi-image-plus"
 		},
 		'center': {
 			action: () => {
