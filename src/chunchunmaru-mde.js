@@ -23,7 +23,7 @@ function chunchunmaru(containerId, settings)
 		previewCodeHighlight: false,
 		sanitize: true,
 		saveHTML: false,
-		toolbars: [
+		toolbar: [
 			'bold',
 			'italic',
 			'|',
@@ -286,7 +286,7 @@ function chunchunmaru(containerId, settings)
 		var order = 1;
 		if (selectionStart == selectionEnd) {
 			var lines = textarea.value.substr(0, selectionStart).split("\n");
-			lines[lines.length - 1] = order + lines[lines.length - 1];
+			lines[lines.length - 1] = `${order}. ` + lines[lines.length - 1];
 		}
 		else {
 			var lineStartIndex = textarea.value.substr(0, selectionStart).split("\n").length - 1;
@@ -342,22 +342,64 @@ function chunchunmaru(containerId, settings)
 
 	this.hotkeys = {
 		'b': (event) => {
-			if (event.ctrlKey) {
-				this.addBracketToSelection("**", "**");
+			if (event.ctrlKey && !event.shiftKey && !event.altKey) {
+				this.buttons.bold.action();
 			}
 		},
 
 		'i': (event) => {
-			if (event.ctrlKey) {
-				this.addBracketToSelection("*", "*");
+			if (event.ctrlKey && !event.shiftKey && !event.altKey) {
+				this.buttons.italic.action();
 			}
 		},
 
-		'Tab': (event) => {
-			if (!event.ctrlKey && !event.shiftKey && !event.altKey) {
-				this.insertString("    ");
+		'l': (event) => {
+			if (event.ctrlKey && !event.shiftKey && !event.altKey) {
+				this.buttons.link.action();
 			}
-		}
+		},
+
+		'q': (event) => {
+			if (event.ctrlKey && !event.shiftKey && !event.altKey) {
+				this.buttons.blockquote.action();
+			}
+		},
+
+		'k': (event) => {
+			if (event.ctrlKey && !event.shiftKey && !event.altKey) {
+				this.buttons.code.action();
+			}
+		},
+
+		'g': (event) => {
+			if (event.ctrlKey && !event.shiftKey && !event.altKey) {
+				this.buttons.image.action();
+			}
+		},
+
+		'o': (event) => {
+			if (event.ctrlKey && !event.shiftKey && !event.altKey) {
+				this.buttons.ol.action();
+			}
+		},
+
+		'u': (event) => {
+			if (event.ctrlKey && !event.shiftKey && !event.altKey) {
+				this.buttons.ul.action();
+			}
+		},
+
+		'z': (event) => {
+			if (event.ctrlKey && !event.shiftKey && !event.altKey) {
+				this.buttons.undo.action();
+			}
+		},
+
+		'y': (event) => {
+			if (event.ctrlKey && !event.shiftKey && !event.altKey) {
+				this.buttons.redo.action();
+			}
+		},
 	};
 
 	this.hotkeys = Object.assign(this.hotkeys, settings.hotkeys);
@@ -378,12 +420,20 @@ function chunchunmaru(containerId, settings)
 
 	this.textarea.addEventListener('keyup', (keyboardEvent) => {
 		if (keyboardEvent.key in this.hotkeys) {
-			this.hotkeys[keyboardEvent.key](keyboardEvent);
+			if (keyboardEvent.ctrlKey && !keyboardEvent.shiftKey && !keyboardEvent.altKey) {
+				keyboardEvent.preventDefault();
+				this.hotkeys[keyboardEvent.key](keyboardEvent);
+			}
 		}
+
+		if (!keyboardEvent.ctrlKey && !keyboardEvent.shiftKey && !keyboardEvent.altKey) {
+			if (keyboardEvent === 'Tab')
+				this.insertString("    ");
+		}
+
 		if (settings.livePreview) {
 			this.previewContainer.innerHTML = this.getHTML();
 		}
-		this.textarea.innerHTML = this.textarea.value;
 	});
 
 	this.textarea.addEventListener('keydown', (keyboardEvent) => {
@@ -399,16 +449,24 @@ function chunchunmaru(containerId, settings)
 			}
 			undoState.push(this.textarea.value);
 		}
-		if (keyboardEvent.ctrlKey && key === "z") {
-			keyboardEvent.preventDefault();
-			this.triggerUndo();
-		}
-		if (keyboardEvent.ctrlKey && key === "y") {
-			keyboardEvent.preventDefault();
-			this.triggerRedo();
-		}
+
 		if (key === "Tab") {
 			keyboardEvent.preventDefault();
+		}
+
+		if (!keyboardEvent.shiftKey && !keyboardEvent.altKey && keyboardEvent.ctrlKey) {
+			switch(key) {
+				case "z":
+					keyboardEvent.preventDefault();
+					break;
+				case "y":
+					keyboardEvent.preventDefault();
+					break;
+			}
+
+			if (keyboardEvent.key in this.hotkeys) {
+				keyboardEvent.preventDefault();
+			}
 		}
 	});
 
@@ -554,8 +612,8 @@ function chunchunmaru(containerId, settings)
 	}
 
 	this.initToolbar = () => {
-		var toolbars = this.settings.toolbars;
-		for (var toolName of toolbars) {
+		var toolbar = this.settings.toolbar;
+		for (var toolName of toolbar) {
 			if (toolName in buttons) {
 				var buttonData = buttons[toolName];
 
