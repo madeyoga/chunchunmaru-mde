@@ -80,7 +80,7 @@ chunchunmaru markdown editor settings and default values:
 - Live preview: [marked.js](https://marked.js.org/) / [marked repo](https://github.com/markedjs/marked)
 - Code syntax highlighting: [highlight.js](https://highlightjs.org/) / [highlight.js repo](https://github.com/highlightjs/highlight.js)
 - Sanitize output HTML: [DOMPurify](https://github.com/cure53/DOMPurify)
-- [Material Design Icons](https://materialdesignicons.com/)
+- [Iconify](https://iconify.design/) using [Material Design Icons](https://materialdesignicons.com/)
 
 ## Contribute
 - [Fork the repository](https://github.com/madeyoga/chunchunmaru-mde.git)!
