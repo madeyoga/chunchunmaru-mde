@@ -1,7 +1,6 @@
 "use strict";
 
-function chunchunmaru(containerId, settings)
-{
+function chunchunmaru(containerId, settings) {
 	if (containerId === undefined) {
 		throw 'First parameter, container id, cannot be null.';
 	}
@@ -51,70 +50,70 @@ function chunchunmaru(containerId, settings)
 	var settings = this.settings = Object.assign(defaultSettings, settings);
 
 	this.regexs = {
-        atLink: /@(\w+)/g,
-        email: /(\w+)@(\w+)\.(\w+)\.?(\w+)?/g,
-        emailLink: /(mailto:)?([\w\.\_]+)@(\w+)\.(\w+)\.?(\w+)?/g,
-        emoji: /:([\w\+-]+):/g,
-        emojiDatetime: /(\d{2}:\d{2}:\d{2})/g,
-        twemoji: /:(tw-([\w]+)-?(\w+)?):/g,
-        pageBreak: /^\[[=]{8,}\]$/
-    };
+		atLink: /@(\w+)/g,
+		email: /(\w+)@(\w+)\.(\w+)\.?(\w+)?/g,
+		emailLink: /(mailto:)?([\w\.\_]+)@(\w+)\.(\w+)\.?(\w+)?/g,
+		emoji: /:([\w\+-]+):/g,
+		emojiDatetime: /(\d{2}:\d{2}:\d{2})/g,
+		twemoji: /:(tw-([\w]+)-?(\w+)?):/g,
+		pageBreak: /^\[[=]{8,}\]$/
+	};
 
-	this.loadScript = function(filepath, callback, into) {
-        into = into || "body";
-        callback = callback || function() {};
+	this.loadScript = function (filepath, callback, into) {
+		into = into || "body";
+		callback = callback || function () { };
 
-        var script = document.createElement("script");
-        script.type = "text/javascript";        
+		var script = document.createElement("script");
+		script.type = "text/javascript";
 		script.src = filepath;
 
 		var isIE = (navigator.appName == "Microsoft Internet Explorer");
-    	var isIE8 = (isIE && navigator.appVersion.match(/8./i) == "8.");
+		var isIE8 = (isIE && navigator.appVersion.match(/8./i) == "8.");
 
-        if (isIE8) {            
-            script.onreadystatechange = function() {
-                if(script.readyState) {
-                    if (script.readyState === "loaded" || script.readyState === "complete") {
-                        script.onreadystatechange = null; 
-                        callback();
-                    }
-                } 
-            };
-        }
-        else {
-            script.onload = function() {
-                callback();
-            };
-        }
- 
-        if (into === "body") {
-            document.getElementsByTagName("body")[0].appendChild(script);
-		} 
+		if (isIE8) {
+			script.onreadystatechange = function () {
+				if (script.readyState) {
+					if (script.readyState === "loaded" || script.readyState === "complete") {
+						script.onreadystatechange = null;
+						callback();
+					}
+				}
+			};
+		}
 		else {
-            document.body.appendChild(script);
-        }
+			script.onload = function () {
+				callback();
+			};
+		}
+
+		if (into === "body") {
+			document.getElementsByTagName("body")[0].appendChild(script);
+		}
+		else {
+			document.body.appendChild(script);
+		}
 	};
 
-	this.loadCSS = function(filepath, callback, into) {
-        into = into || "head";        
-        callback = callback || function() {};
-        
-        var css = document.createElement("link");
-        css.type = "text/css";
-        css.rel = "stylesheet";
-        css.onload = css.onreadystatechange = function() {
-            callback();
-        };
+	this.loadCSS = function (filepath, callback, into) {
+		into = into || "head";
+		callback = callback || function () { };
 
-        css.href = filepath;
+		var css = document.createElement("link");
+		css.type = "text/css";
+		css.rel = "stylesheet";
+		css.onload = css.onreadystatechange = function () {
+			callback();
+		};
 
-        if(into === "head") {
-            document.getElementsByTagName("head")[0].appendChild(css);
-		} 
+		css.href = filepath;
+
+		if (into === "head") {
+			document.getElementsByTagName("head")[0].appendChild(css);
+		}
 		else {
-            document.body.appendChild(css);
-        }
-    };
+			document.body.appendChild(css);
+		}
+	};
 
 	this.loadScript("https://code.iconify.design/1/1.0.7/iconify.min.js");
 
@@ -140,22 +139,22 @@ function chunchunmaru(containerId, settings)
 
 		// atLink Renderer
 		markedRenderer.paragraph = (text) => {
-            if (settings.atLink) {
+			if (settings.atLink) {
 
-                if (atLinkReg.test(text))  {
-                    text = text.replace(emailReg, function($1, $2, $3, $4) {
-                        return $1.replace(/@/g, "_#_&#64;_#_");
-                    });
+				if (atLinkReg.test(text)) {
+					text = text.replace(emailReg, function ($1, $2, $3, $4) {
+						return $1.replace(/@/g, "_#_&#64;_#_");
+					});
 
-                    text = text.replace(atLinkReg, function($1, $2) {
-                        return "<a href=\"" + settings.atLinkBase + "" + $2 + "\" title=\"&#64;" + $2 + "\" class=\"at-link\">" + $1 + "</a>";
-                    }).replace(/_#_&#64;_#_/g, "@");
+					text = text.replace(atLinkReg, function ($1, $2) {
+						return "<a href=\"" + settings.atLinkBase + "" + $2 + "\" title=\"&#64;" + $2 + "\" class=\"at-link\">" + $1 + "</a>";
+					}).replace(/_#_&#64;_#_/g, "@");
 				}
 
-                return text;
-            }
+				return text;
+			}
 
-            return text;
+			return text;
 		};
 
 		var markedOptions = this.markedOptions = {
@@ -166,7 +165,7 @@ function chunchunmaru(containerId, settings)
 			pedantic: false,
 			smartLists: true,
 			smartypants: false,
-			highlight: settings.previewCodeHighlight ? function(code, lang) {
+			highlight: settings.previewCodeHighlight ? function (code, lang) {
 				const language = hljs.getLanguage(lang) ? lang : 'plaintext';
 				return hljs.highlight(code, { language }).value;
 			} : false,
@@ -226,7 +225,7 @@ function chunchunmaru(containerId, settings)
 		var selectedText = window.getSelection().toString();
 
 		var processedText = pre + selectedText + post;
-		
+
 		var preText = content.substring(0, start);
 		var postText = content.substring(end, textarea.value.length);
 
@@ -455,7 +454,7 @@ function chunchunmaru(containerId, settings)
 		}
 
 		if (!keyboardEvent.shiftKey && !keyboardEvent.altKey && keyboardEvent.ctrlKey) {
-			switch(key) {
+			switch (key) {
 				case "z":
 					keyboardEvent.preventDefault();
 					break;
@@ -493,7 +492,7 @@ function chunchunmaru(containerId, settings)
 				this.addBracketToSelection("[link_", "](put_your_link_url_here)");
 			},
 			icon: "mdi mdi-link-variant",
-			name: "link", 
+			name: "link",
 			title: "Add link Ctrl + L"
 		},
 		'blockquote': {
@@ -626,7 +625,7 @@ function chunchunmaru(containerId, settings)
 				var button = document.createElement("button");
 				button.onclick = buttonData.action;
 				button.title = buttonData.title;
-				button.type ="button";
+				button.type = "button";
 				button.appendChild(icon);
 
 				this.toolbar.appendChild(button);
@@ -650,11 +649,9 @@ function chunchunmaru(containerId, settings)
 	}
 }
 
-if (typeof require === "function" && typeof exports === "object" && typeof module === "object")
-{
+if (typeof require === "function" && typeof exports === "object" && typeof module === "object") {
 	module.exports = chunchunmaru;
 }
-else
-{ 
+else {
 	window.chunchunmaru = chunchunmaru;
 }
