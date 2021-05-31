@@ -15,6 +15,8 @@ Features in mind:
 ## Download & Install
 Github Download
 
+https://github.com/madeyoga/chunchunmaru-mde/releases
+
 ## Usages
 **Create a basic chunchunmaru markdown editor**
 ```html
