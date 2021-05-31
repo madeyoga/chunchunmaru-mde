@@ -254,8 +254,9 @@ function chunchunmaru(containerId, settings) {
 		var selectionEnd = textarea.selectionEnd;
 
 		if (selectionStart == selectionEnd) {
-			var lines = textarea.value.substr(0, selectionStart).split("\n");
-			lines[lines.length - 1] = prefix + lines[lines.length - 1];
+			var selectedLineIndex = textarea.value.substr(0, selectionStart).split("\n").length - 1;
+			var lines = textarea.value.split("\n");
+			lines[lines.length - 1] = prefix + lines[selectedLineIndex];
 		}
 		else {
 			var lineStartIndex = textarea.value.substr(0, selectionStart).split("\n").length - 1;
@@ -284,8 +285,9 @@ function chunchunmaru(containerId, settings) {
 
 		var order = 1;
 		if (selectionStart == selectionEnd) {
-			var lines = textarea.value.substr(0, selectionStart).split("\n");
-			lines[lines.length - 1] = `${order}. ` + lines[lines.length - 1];
+			var selectedLineIndex = textarea.value.substr(0, selectionStart).split("\n").length - 1;
+			var lines = textarea.value.split("\n");
+			lines[lines.length - 1] = `${order}. ` + lines[selectedLineIndex];
 		}
 		else {
 			var lineStartIndex = textarea.value.substr(0, selectionStart).split("\n").length - 1;
