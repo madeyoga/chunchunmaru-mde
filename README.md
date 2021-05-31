@@ -26,7 +26,6 @@ Github Download
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/2.2.7/purify.min.js"></script>
 <script type="text/javascript" src="dist/chunchunmaru-mde.min.js"></script>
 <script type="text/javascript">
-	var settings = {}
 	var editor = new chunchunmaru("editor-container", settings);
 </script>
 ```
