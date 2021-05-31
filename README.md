@@ -28,7 +28,7 @@ https://github.com/madeyoga/chunchunmaru-mde/releases
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/2.2.7/purify.min.js"></script>
 <script type="text/javascript" src="dist/chunchunmaru-mde.min.js"></script>
 <script type="text/javascript">
-	var editor = new chunchunmaru("editor-container", settings);
+	var editor = new chunchunmaru("editor-container");
 </script>
 ```
 
