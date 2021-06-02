@@ -428,7 +428,7 @@ function chunchunmaru(containerId, settings) {
 		}
 
 		if (!keyboardEvent.ctrlKey && !keyboardEvent.shiftKey && !keyboardEvent.altKey) {
-			if (keyboardEvent === 'Tab')
+			if (keyboardEvent.key === 'Tab')
 				this.insertString("    ");
 		}
 
