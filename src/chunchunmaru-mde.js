@@ -118,15 +118,13 @@ function chunchunmaru(containerId, settings) {
 	this.loadScript("https://code.iconify.design/1/1.0.7/iconify.min.js");
 
 	/**
-	 * Dependents check
+	 * Dependencies & settings check
 	 */
 	if (settings.livePreview) {
 		this.previewContainer = document.querySelector(this.settings.livePreviewContainer);
+	}
 
-		if (typeof marked === "undefined") {
-			throw 'marked is not defined';
-		}
-
+	if (typeof marked != "undefined") {
 		if (settings.previewCodeHighlight) {
 			if (typeof hljs === "undefined") {
 				throw 'highlight.js is not defined';
@@ -210,8 +208,11 @@ function chunchunmaru(containerId, settings) {
 	this.toolbar.className += "chunchunmaru-editor-toolbar";
 	this.textarea.className += "chunchunmaru-editor";
 
+	var defaultChilds = this.container.getElementsByTagName("*");
 	this.container.appendChild(this.toolbar);
-	this.container.appendChild(this.textarea);
+	for (var child of defaultChilds) {
+		this.container.appendChild(child);
+	}
 
 	/**
 	 * Methods
@@ -278,7 +279,7 @@ function chunchunmaru(containerId, settings) {
 		this.textarea.focus();
 	}
 
-	this.addOrderToSelectedLine = (prefix) => {
+	this.addOrderToSelectedLine = () => {
 		var textarea = this.textarea;
 		var selectionStart = textarea.selectionStart;
 		var selectionEnd = textarea.selectionEnd;
