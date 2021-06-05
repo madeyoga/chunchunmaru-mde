@@ -2,7 +2,7 @@
 
 function chunchunmaru(containerId, settings) {
 	if (containerId === undefined) {
-		throw 'First parameter, container id, cannot be null.';
+		throw 'First parameter (container id) cannot be null.';
 	}
 
 	settings = settings || {};
