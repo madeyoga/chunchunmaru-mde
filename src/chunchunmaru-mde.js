@@ -156,7 +156,7 @@ function chunchunmaru(containerId, settings) {
 		};
 
 		var markedOptions = this.markedOptions = {
-			renderer: markedRenderer,
+			// renderer: markedRenderer,
 			gfm: settings.gfm,
 			tables: true,
 			breaks: true,
@@ -208,10 +208,13 @@ function chunchunmaru(containerId, settings) {
 	this.toolbar.className += "chunchunmaru-editor-toolbar";
 	this.textarea.className += "chunchunmaru-editor";
 
-	var defaultChilds = this.container.getElementsByTagName("*");
+	var defaultChild = this.container.children[0];
 	this.container.appendChild(this.toolbar);
-	for (var child of defaultChilds) {
-		this.container.appendChild(child);
+	if (defaultChild === undefined) {
+		this.container.appendChild(this.textarea);
+	}
+	else {
+		this.container.appendChild(defaultChild);
 	}
 
 	/**
