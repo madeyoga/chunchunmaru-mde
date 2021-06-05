@@ -218,127 +218,6 @@ function chunchunmaru(containerId, settings) {
 	}
 
 	/**
-	 * Methods
-	 */
-	this.addBracketToSelection = (pre, post) => {
-		var textarea = this.textarea;
-		var content = textarea.value;
-		var start = textarea.selectionStart;
-		var end = textarea.selectionEnd;
-
-		var selectedText = window.getSelection().toString();
-
-		var processedText = pre + selectedText + post;
-
-		var preText = content.substring(0, start);
-		var postText = content.substring(end, textarea.value.length);
-
-		// new content
-		this.textarea.value = preText + processedText + postText;
-		this.textarea.focus();
-		this.textarea.selectionStart = start + pre.length + selectedText.length;
-		this.textarea.selectionEnd = start + pre.length + selectedText.length;
-	}
-
-	this.insertString = (string) => {
-		var content = this.textarea.value;
-		var cursorPosition = this.textarea.selectionStart;
-
-		var preText = content.substring(0, cursorPosition);
-		var postText = content.substring(cursorPosition, content.length);
-
-		this.textarea.value = preText + string + postText;
-		this.textarea.selectionStart = cursorPosition + string.length;
-		this.textarea.selectionEnd = cursorPosition + string.length;
-	}
-
-	this.addPrefixToSelectedLine = (prefix) => {
-		var textarea = this.textarea;
-		var selectionStart = textarea.selectionStart;
-		var selectionEnd = textarea.selectionEnd;
-
-		if (selectionStart == selectionEnd) {
-			var selectedLineIndex = textarea.value.substr(0, selectionStart).split("\n").length - 1;
-			var lines = textarea.value.split("\n");
-			lines[lines.length - 1] = prefix + lines[selectedLineIndex];
-		}
-		else {
-			var lineStartIndex = textarea.value.substr(0, selectionStart).split("\n").length - 1;
-			var lineEndIndex = textarea.value.substr(0, selectionEnd).split("\n").length - 1;
-
-			var lines = textarea.value.split("\n");
-			if (lineStartIndex > lineEndIndex) {
-				var temp = lineEndIndex;
-				lineEndIndex = lineStartIndex;
-				lineStartIndex = temp;
-			}
-
-			while (lineStartIndex <= lineEndIndex) {
-				lines[lineStartIndex] = prefix + lines[lineStartIndex];
-				lineStartIndex += 1;
-			}
-		}
-		this.textarea.value = lines.join("\n");
-		this.textarea.focus();
-	}
-
-	this.addOrderToSelectedLine = () => {
-		var textarea = this.textarea;
-		var selectionStart = textarea.selectionStart;
-		var selectionEnd = textarea.selectionEnd;
-
-		var order = 1;
-		if (selectionStart == selectionEnd) {
-			var selectedLineIndex = textarea.value.substr(0, selectionStart).split("\n").length - 1;
-			var lines = textarea.value.split("\n");
-			lines[lines.length - 1] = `${order}. ` + lines[selectedLineIndex];
-		}
-		else {
-			var lineStartIndex = textarea.value.substr(0, selectionStart).split("\n").length - 1;
-			var lineEndIndex = textarea.value.substr(0, selectionEnd).split("\n").length - 1;
-
-			var lines = textarea.value.split("\n");
-			if (lineStartIndex > lineEndIndex) {
-				var temp = lineEndIndex;
-				lineEndIndex = lineStartIndex;
-				lineStartIndex = temp;
-			}
-
-			while (lineStartIndex <= lineEndIndex) {
-				lines[lineStartIndex] = `${order}. ` + lines[lineStartIndex];
-				lineStartIndex += 1;
-				order += 1;
-			}
-		}
-		this.textarea.value = lines.join("\n");
-		this.textarea.focus();
-	}
-
-	this.saveMarkdownToInnerHTML = () => {
-		this.textarea.innerHTML = this.textarea.value;
-	}
-
-	this.getHTML = () => {
-		var dirtyHTML = marked(this.textarea.value);
-		if (settings.sanitize) {
-			var cleanHTML = DOMPurify.sanitize(dirtyHTML);
-			return cleanHTML;
-		}
-		else {
-			return dirtyHTML;
-		}
-	}
-
-	this.markdownToHTML = (markdown) => {
-		var dirtyHTML = marked(markdown);
-		if (settings.sanitize) {
-			var cleanHTML = DOMPurify.sanitize(dirtyHTML);
-			return cleanHTML;
-		}
-		return dirtyHTML;
-	}
-
-	/**
 	 * Keyboard & Undo Redo events
 	 */
 	var undoState = [''];
@@ -408,20 +287,6 @@ function chunchunmaru(containerId, settings) {
 	};
 
 	this.hotkeys = Object.assign(this.hotkeys, settings.hotkeys);
-
-	this.triggerUndo = () => {
-		if (undoState.length > 1) {
-			redoState.push(this.textarea.value);
-			this.textarea.value = undoState.pop();
-		}
-	}
-
-	this.triggerRedo = () => {
-		if (redoState.length) {
-			undoState.push(this.textarea.value);
-			this.textarea.value = redoState.pop();
-		}
-	}
 
 	this.textarea.addEventListener('keyup', (keyboardEvent) => {
 		if (keyboardEvent.key in this.hotkeys) {
@@ -653,6 +518,183 @@ function chunchunmaru(containerId, settings) {
 	if (settings.livePreview) {
 		this.previewContainer.innerHTML = this.getHTML();
 	}
+}
+
+chunchunmaru.prototype.addBracketToSelection = function(pre, post) {
+	var textarea = this.textarea;
+	var content = textarea.value;
+	var start = textarea.selectionStart;
+	var end = textarea.selectionEnd;
+
+	var selectedText = window.getSelection().toString();
+
+	var processedText = pre + selectedText + post;
+
+	var preText = content.substring(0, start);
+	var postText = content.substring(end, textarea.value.length);
+
+	// new content
+	this.textarea.value = preText + processedText + postText;
+	this.textarea.focus();
+	this.textarea.selectionStart = start + pre.length + selectedText.length;
+	this.textarea.selectionEnd = start + pre.length + selectedText.length;
+}
+
+chunchunmaru.prototype.insertString = function(string) {
+	var content = this.textarea.value;
+	var cursorPosition = this.textarea.selectionStart;
+
+	var preText = content.substring(0, cursorPosition);
+	var postText = content.substring(cursorPosition, content.length);
+
+	this.textarea.value = preText + string + postText;
+	this.textarea.selectionStart = cursorPosition + string.length;
+	this.textarea.selectionEnd = cursorPosition + string.length;
+}
+
+chunchunmaru.prototype.addPrefixToSelectedLine = function(prefix) {
+	var textarea = this.textarea;
+	var selectionStart = textarea.selectionStart;
+	var selectionEnd = textarea.selectionEnd;
+
+	if (selectionStart == selectionEnd) {
+		var selectedLineIndex = textarea.value.substr(0, selectionStart).split("\n").length - 1;
+		var lines = textarea.value.split("\n");
+		lines[lines.length - 1] = prefix + lines[selectedLineIndex];
+	}
+	else {
+		var lineStartIndex = textarea.value.substr(0, selectionStart).split("\n").length - 1;
+		var lineEndIndex = textarea.value.substr(0, selectionEnd).split("\n").length - 1;
+
+		var lines = textarea.value.split("\n");
+		if (lineStartIndex > lineEndIndex) {
+			var temp = lineEndIndex;
+			lineEndIndex = lineStartIndex;
+			lineStartIndex = temp;
+		}
+
+		while (lineStartIndex <= lineEndIndex) {
+			lines[lineStartIndex] = prefix + lines[lineStartIndex];
+			lineStartIndex += 1;
+		}
+	}
+	this.textarea.value = lines.join("\n");
+	this.textarea.focus();
+}
+
+chunchunmaru.prototype.addOrderToSelectedLine = function() {
+	var textarea = this.textarea;
+	var selectionStart = textarea.selectionStart;
+	var selectionEnd = textarea.selectionEnd;
+
+	var order = 1;
+	if (selectionStart == selectionEnd) {
+		var selectedLineIndex = textarea.value.substr(0, selectionStart).split("\n").length - 1;
+		var lines = textarea.value.split("\n");
+		lines[lines.length - 1] = `${order}. ` + lines[selectedLineIndex];
+	}
+	else {
+		var lineStartIndex = textarea.value.substr(0, selectionStart).split("\n").length - 1;
+		var lineEndIndex = textarea.value.substr(0, selectionEnd).split("\n").length - 1;
+
+		var lines = textarea.value.split("\n");
+		if (lineStartIndex > lineEndIndex) {
+			var temp = lineEndIndex;
+			lineEndIndex = lineStartIndex;
+			lineStartIndex = temp;
+		}
+
+		while (lineStartIndex <= lineEndIndex) {
+			lines[lineStartIndex] = `${order}. ` + lines[lineStartIndex];
+			lineStartIndex += 1;
+			order += 1;
+		}
+	}
+	this.textarea.value = lines.join("\n");
+	this.textarea.focus();
+}
+
+chunchunmaru.prototype.saveMarkdownToInnerHTML = function() {
+	this.textarea.innerHTML = this.textarea.value;
+}
+
+chunchunmaru.prototype.getHTML = function()  {
+	var dirtyHTML = marked(this.textarea.value);
+	if (settings.sanitize) {
+		var cleanHTML = DOMPurify.sanitize(dirtyHTML);
+		return cleanHTML;
+	}
+	else {
+		return dirtyHTML;
+	}
+}
+
+chunchunmaru.prototype.triggerUndo = function() {
+	if (undoState.length > 1) {
+		redoState.push(this.textarea.value);
+		this.textarea.value = undoState.pop();
+	}
+}
+
+chunchunmaru.prototype.triggerRedo = function() {
+	if (redoState.length) {
+		undoState.push(this.textarea.value);
+		this.textarea.value = redoState.pop();
+	}
+}
+
+chunchunmaru.markdownToHTML = function (markdown, settings) {
+	var defaults = {
+		gfm: true,
+		previewCodeHighlight: false,
+		sanitize: true,
+	}
+
+	settings = settings || {};
+
+	settings = Object.assign(defaults, settings);
+
+	console.log(settings);
+
+	if (typeof marked === "undefined") {
+		throw "marked is not defined";
+	}
+
+	var previewCodeHighlight = false;
+	if (settings.previewCodeHighlight) {
+		if (typeof hljs === "undefined") {
+			throw "hljs is undefined";
+		}
+
+		previewCodeHighlight = function (code, lang) {
+			const language = hljs.getLanguage(lang) ? lang : 'plaintext';
+			return hljs.highlight(code, { language }).value;
+		};
+	}
+
+	if (settings.sanitize && typeof DOMPurify === "undefined") {
+		throw "DOMPurify is not defined";
+	}
+
+	var markedOptions = this.markedOptions = {
+		gfm: settings.gfm,
+		tables: true,
+		breaks: true,
+		pedantic: false,
+		smartLists: true,
+		smartypants: false,
+		highlight: previewCodeHighlight,
+		langPrefix: settings.previewCodeHighlight ? 'hljs lang-' : "lang-",
+	};
+
+	marked.setOptions(markedOptions);
+
+	var dirtyHTML = marked(markdown);
+	if (settings.sanitize) {
+		var cleanHTML = DOMPurify.sanitize(dirtyHTML);
+		return cleanHTML;
+	}
+	return dirtyHTML;
 }
 
 if (typeof require === "function" && typeof exports === "object" && typeof module === "object") {
