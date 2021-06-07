@@ -654,8 +654,6 @@ chunchunmaru.markdownToHTML = function (markdown, settings) {
 
 	settings = Object.assign(defaults, settings);
 
-	console.log(settings);
-
 	if (typeof marked === "undefined") {
 		throw "marked is not defined";
 	}
