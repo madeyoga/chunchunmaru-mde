@@ -620,7 +620,7 @@ chunchunmaru.prototype.saveMarkdownToInnerHTML = function() {
 
 chunchunmaru.prototype.getHTML = function()  {
 	var dirtyHTML = marked(this.textarea.value);
-	if (settings.sanitize) {
+	if (this.settings.sanitize) {
 		var cleanHTML = DOMPurify.sanitize(dirtyHTML);
 		return cleanHTML;
 	}
