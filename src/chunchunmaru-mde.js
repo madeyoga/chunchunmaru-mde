@@ -224,6 +224,20 @@ function chunchunmaru(containerId, settings) {
 	var redoState = [];
 	var maxSaveThreshold = 20;
 
+	this.triggerUndo = function() {
+		if (undoState.length > 1) {
+			redoState.push(this.textarea.value);
+			this.textarea.value = undoState.pop();
+		}
+	}
+	
+	this.triggerRedo = function() {
+		if (redoState.length) {
+			undoState.push(this.textarea.value);
+			this.textarea.value = redoState.pop();
+		}
+	}
+
 	this.hotkeys = {
 		'b': (event) => {
 			if (event.ctrlKey && !event.shiftKey && !event.altKey) {
@@ -626,20 +640,6 @@ chunchunmaru.prototype.getHTML = function()  {
 	}
 	else {
 		return dirtyHTML;
-	}
-}
-
-chunchunmaru.prototype.triggerUndo = function() {
-	if (undoState.length > 1) {
-		redoState.push(this.textarea.value);
-		this.textarea.value = undoState.pop();
-	}
-}
-
-chunchunmaru.prototype.triggerRedo = function() {
-	if (redoState.length) {
-		undoState.push(this.textarea.value);
-		this.textarea.value = redoState.pop();
 	}
 }
 
