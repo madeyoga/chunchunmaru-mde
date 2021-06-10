@@ -66,6 +66,7 @@ function chunchunmaru(containerId, settings) {
 		var script = document.createElement("script");
 		script.type = "text/javascript";
 		script.src = filepath;
+		script.setAttribute('async', '');
 
 		var isIE = (navigator.appName == "Microsoft Internet Explorer");
 		var isIE8 = (isIE && navigator.appVersion.match(/8./i) == "8.");
