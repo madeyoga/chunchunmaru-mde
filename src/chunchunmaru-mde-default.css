@@ -17,7 +17,6 @@
 	width: 100%;
 	min-height: 128px;
 	border: 0px solid lightgray;
-	border-top: 1px solid lightgray;
 	font-size: 14px;
 	letter-spacing: normal;
 	outline: none;
@@ -68,7 +67,8 @@ textarea.chunchunmaru-editor::-webkit-scrollbar-thumb:hover {
 .chunchunmaru-editor-toolbar {
 	flex: 0 1 100%;
 	min-width: 0;
-	margin: 12px;
+	padding: 12px;
+	border-bottom: 1px solid lightgray;
 }
 
 .chunchunmaru-editor-toolbar button {

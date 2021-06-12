@@ -205,9 +205,9 @@ function chunchunmaru(containerId, settings) {
 		}
 	}
 
-	this.container.className += "chunchumaru-container";
-	this.toolbar.className += "chunchunmaru-editor-toolbar";
-	this.textarea.className += "chunchunmaru-editor";
+	this.container.className += " chunchumaru-container";
+	this.toolbar.className += " chunchunmaru-editor-toolbar";
+	this.textarea.className += " chunchunmaru-editor";
 
 	var defaultChild = this.container.children[0];
 	this.container.appendChild(this.toolbar);
@@ -550,7 +550,6 @@ chunchunmaru.prototype.addBracketToSelection = function(pre, post) {
 
 	// new content
 	this.textarea.value = preText + processedText + postText;
-	this.textarea.focus();
 	this.textarea.selectionStart = start + pre.length + selectedText.length;
 	this.textarea.selectionEnd = start + pre.length + selectedText.length;
 }
@@ -575,7 +574,7 @@ chunchunmaru.prototype.addPrefixToSelectedLine = function(prefix) {
 	if (selectionStart == selectionEnd) {
 		var selectedLineIndex = textarea.value.substr(0, selectionStart).split("\n").length - 1;
 		var lines = textarea.value.split("\n");
-		lines[lines.length - 1] = prefix + lines[selectedLineIndex];
+		lines[selectedLineIndex] = prefix + lines[selectedLineIndex];
 	}
 	else {
 		var lineStartIndex = textarea.value.substr(0, selectionStart).split("\n").length - 1;
@@ -594,7 +593,6 @@ chunchunmaru.prototype.addPrefixToSelectedLine = function(prefix) {
 		}
 	}
 	this.textarea.value = lines.join("\n");
-	this.textarea.focus();
 }
 
 chunchunmaru.prototype.addOrderToSelectedLine = function() {
@@ -606,7 +604,7 @@ chunchunmaru.prototype.addOrderToSelectedLine = function() {
 	if (selectionStart == selectionEnd) {
 		var selectedLineIndex = textarea.value.substr(0, selectionStart).split("\n").length - 1;
 		var lines = textarea.value.split("\n");
-		lines[lines.length - 1] = `${order}. ` + lines[selectedLineIndex];
+		lines[selectedLineIndex] = `${order}. ` + lines[selectedLineIndex];
 	}
 	else {
 		var lineStartIndex = textarea.value.substr(0, selectionStart).split("\n").length - 1;
@@ -626,7 +624,6 @@ chunchunmaru.prototype.addOrderToSelectedLine = function() {
 		}
 	}
 	this.textarea.value = lines.join("\n");
-	this.textarea.focus();
 }
 
 chunchunmaru.prototype.saveMarkdownToInnerHTML = function() {
