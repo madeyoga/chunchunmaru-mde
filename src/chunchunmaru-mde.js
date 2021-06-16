@@ -313,7 +313,7 @@ function chunchunmaru(containerId, settings) {
 
 		if (!keyboardEvent.ctrlKey && !keyboardEvent.shiftKey && !keyboardEvent.altKey) {
 			if (keyboardEvent.key === 'Tab')
-				this.insertString("    ");
+				this.insertString("\t");
 		}
 
 		if (settings.livePreview) {
@@ -525,6 +525,10 @@ function chunchunmaru(containerId, settings) {
 				this.toolbar.appendChild(hr);
 			}
 		}
+		this.toolbar.addEventListener('click', () => {
+			if (settings.livePreviewContainer)
+				this.previewContainer.innerHTML = this.getHTML();
+		});
 	}
 
 	this.initToolbar();
