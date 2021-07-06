@@ -545,7 +545,7 @@ chunchunmaru.prototype.addBracketToSelection = function(pre, post) {
 	var start = textarea.selectionStart;
 	var end = textarea.selectionEnd;
 
-	var selectedText = window.getSelection().toString();
+	var selectedText = content.substring(start, end); // window.getSelection().toString();
 
 	var processedText = pre + selectedText + post;
 
