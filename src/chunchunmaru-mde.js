@@ -367,7 +367,7 @@ function chunchunmaru(containerId, settings) {
 		},
 		"italic": {
 			action: () => {
-				this.addBracketToSelection("*", "*");
+				this.addBracketToSelection("_", "_");
 			},
 			icon: "mdi mdi-format-italic",
 			name: "format_italic",
