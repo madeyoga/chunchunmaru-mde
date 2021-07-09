@@ -25,6 +25,7 @@ function chunchunmaru(containerId, settings) {
 		toolbar: [
 			'bold',
 			'italic',
+			'strikethrough',
 			'|',
 			'link',
 			'blockquote',
@@ -373,9 +374,17 @@ function chunchunmaru(containerId, settings) {
 			name: "format_italic",
 			title: "Italic selection Ctrl + I"
 		},
+		"strikethrough": {
+			action: () => {
+				this.addBracketToSelection("~~", "~~");
+			},
+			icon: "mdi mdi-format-strikethrough-variant",
+			name: "format_strikethrough",
+			title: "Strikethorugh selection"
+		},
 		"link": {
 			action: () => {
-				this.addBracketToSelection("[link_", "](put_your_link_url_here)");
+				this.addBracketToSelection("[", "](put_your_link_url_here)");
 			},
 			icon: "mdi mdi-link-variant",
 			name: "link",
@@ -399,7 +408,7 @@ function chunchunmaru(containerId, settings) {
 		},
 		'image': {
 			action: () => {
-				this.addBracketToSelection("![image](", ")");
+				this.addBracketToSelection("![image](", ")", 'put_your_image_url_here');
 			},
 			icon: "mdi mdi-image",
 			name: "image",
@@ -539,13 +548,25 @@ function chunchunmaru(containerId, settings) {
 	}
 }
 
-chunchunmaru.prototype.addBracketToSelection = function(pre, post) {
+chunchunmaru.prototype.addBracketToSelection = function(pre, post, blankDefault='') {
 	var textarea = this.textarea;
 	var content = textarea.value;
 	var start = textarea.selectionStart;
 	var end = textarea.selectionEnd;
 
-	var selectedText = content.substring(start, end); // window.getSelection().toString();
+	let selectedText = blankDefault;
+
+	// if there is a selection
+	if (start !== end) {
+		selectedText = content.substring(start, end);
+		const selectedTrimLength = selectedText.trim().length;
+	
+		if (selectedText.length !== selectedTrimLength) {
+			start = textarea.selectionStart;
+			end = start + selectedTrimLength;
+			selectedText = content.substring(start, end);
+		}
+	}
 
 	var processedText = pre + selectedText + post;
 
