@@ -554,17 +554,18 @@ chunchunmaru.prototype.addBracketToSelection = function(pre, post, blankDefault=
 	var start = textarea.selectionStart;
 	var end = textarea.selectionEnd;
 
-	let selectedText = content.substring(start, end);
-	const selectedTrimLength = selectedText.trim().length;
+	let selectedText = blankDefault;
 
-	if (selectedText.length !== selectedTrimLength) {
-		start = textarea.selectionStart;
-		end = start + selectedTrimLength;
+	// if there is a selection
+	if (start !== end) {
 		selectedText = content.substring(start, end);
-	}
-
-	if (start === end) {
-		selectedText = blankDefault;
+		const selectedTrimLength = selectedText.trim().length;
+	
+		if (selectedText.length !== selectedTrimLength) {
+			start = textarea.selectionStart;
+			end = start + selectedTrimLength;
+			selectedText = content.substring(start, end);
+		}
 	}
 
 	var processedText = pre + selectedText + post;
