@@ -55,6 +55,7 @@ chunchunmaru markdown editor settings and default values:
 	toolbars: [			// Remove item to exclude.
 	  'bold',
 	  'italic',
+	  'strikethrough',
 	  '|',
 	  'link',
 	  'blockquote',
