@@ -360,7 +360,7 @@ function chunchunmaru(containerId, settings) {
 	var buttons = this.buttons = {
 		"bold": {
 			action: () => {
-				this.addBracketToSelection("**", "**");
+				this.wrapSelection("**", "**");
 			},
 			icon: "mdi mdi-format-bold",
 			name: "format_bold",
@@ -368,7 +368,7 @@ function chunchunmaru(containerId, settings) {
 		},
 		"italic": {
 			action: () => {
-				this.addBracketToSelection("_", "_");
+				this.wrapSelection("_", "_");
 			},
 			icon: "mdi mdi-format-italic",
 			name: "format_italic",
@@ -376,7 +376,7 @@ function chunchunmaru(containerId, settings) {
 		},
 		"strikethrough": {
 			action: () => {
-				this.addBracketToSelection("~~", "~~");
+				this.wrapSelection("~~", "~~");
 			},
 			icon: "mdi mdi-format-strikethrough-variant",
 			name: "format_strikethrough",
@@ -384,7 +384,7 @@ function chunchunmaru(containerId, settings) {
 		},
 		"link": {
 			action: () => {
-				this.addBracketToSelection("[", "](put_your_link_url_here)");
+				this.wrapSelection("[", "](put_your_link_url_here)");
 			},
 			icon: "mdi mdi-link-variant",
 			name: "link",
@@ -400,7 +400,7 @@ function chunchunmaru(containerId, settings) {
 		},
 		'code': {
 			action: () => {
-				this.addBracketToSelection("```python\n", "\n```");
+				this.wrapSelection("```python\n", "\n```");
 			},
 			icon: "mdi mdi-code-braces",
 			name: "code",
@@ -408,7 +408,7 @@ function chunchunmaru(containerId, settings) {
 		},
 		'image': {
 			action: () => {
-				this.addBracketToSelection("![image](", ")", 'put_your_image_url_here');
+				this.wrapSelection("![image](", ")", 'put_your_image_url_here');
 			},
 			icon: "mdi mdi-image",
 			name: "image",
@@ -416,7 +416,7 @@ function chunchunmaru(containerId, settings) {
 		},
 		'uploadImage': {
 			action: () => {
-				this.addBracketToSelection("![image](", ")");
+				this.wrapSelection("![image](", ")");
 			},
 			icon: "mdi mdi-image-plus",
 			name: "add_photo_alternate",
@@ -424,7 +424,7 @@ function chunchunmaru(containerId, settings) {
 		},
 		'center': {
 			action: () => {
-				this.addBracketToSelection("<div align='center'>\n\n", "\n\n</div>");
+				this.wrapSelection("<div align='center'>\n\n", "\n\n</div>");
 			},
 			icon: "mdi mdi-format-align-center",
 			name: "format_align_center"
@@ -548,13 +548,13 @@ function chunchunmaru(containerId, settings) {
 	}
 }
 
-chunchunmaru.prototype.addBracketToSelection = function(pre, post, blankDefault='') {
+chunchunmaru.prototype.wrapSelection = function(pre, post, defaultSelection='') {
 	var textarea = this.textarea;
 	var content = textarea.value;
 	var start = textarea.selectionStart;
 	var end = textarea.selectionEnd;
 
-	let selectedText = blankDefault;
+	let selectedText = defaultSelection;
 
 	// if there is a selection
 	if (start !== end) {
