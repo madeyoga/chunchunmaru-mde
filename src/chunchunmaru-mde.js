@@ -559,11 +559,19 @@ chunchunmaru.prototype.wrapSelection = function(pre, post, defaultSelection='') 
 	// if there is a selection
 	if (start !== end) {
 		selectedText = content.substring(start, end);
-		const selectedTrimLength = selectedText.trim().length;
+		let selectedTrimLength = selectedText.replace(/\s*$/,"").length; // selectedText.trimRight().length;
 	
 		if (selectedText.length !== selectedTrimLength) {
 			start = textarea.selectionStart;
 			end = start + selectedTrimLength;
+			selectedText = content.substring(start, end);
+		}
+
+		selectedTrimLength = selectedText.replace(/^\s*/,"").length; // selectedText.trimLeft().length;
+
+		if (selectedText.length !== selectedTrimLength) {
+			end = textarea.selectionEnd;
+			start = end - selectedTrimLength;
 			selectedText = content.substring(start, end);
 		}
 	}
