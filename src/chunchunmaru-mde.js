@@ -570,7 +570,6 @@ chunchunmaru.prototype.wrapSelection = function(pre, post, defaultSelection='') 
 		selectedTrimLength = selectedText.replace(/^\s*/,"").length; // selectedText.trimLeft().length;
 
 		if (selectedText.length !== selectedTrimLength) {
-			end = textarea.selectionEnd;
 			start = end - selectedTrimLength;
 			selectedText = content.substring(start, end);
 		}
