@@ -43,9 +43,6 @@ chunchunmaru markdown editor settings and default values:
 	  name: "editor",
 	  placeholder: "Start writting!",
 	},
-	atLink: false,
-	atLinkBase: 'https://github.com/',
-	autoSave: false,
 	gfm: true,
 	livePreview: false,		// Requires marked
 	livePreviewContainer: "",
