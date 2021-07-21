@@ -16,6 +16,7 @@ function chunchunmaru(containerId, settings) {
 		atLink: false,
 		atLinkBase: 'https://github.com/',
 		autoSave: false,
+		csrfToken: null,
 		gfm: true,
 		livePreview: false,
 		livePreviewContainer: "",
@@ -31,6 +32,7 @@ function chunchunmaru(containerId, settings) {
 			'blockquote',
 			'code',
 			'image',
+			'uploadImage',
 			'|',
 			'center',
 			'ol',
@@ -45,7 +47,8 @@ function chunchunmaru(containerId, settings) {
 			'|',
 			'undo',
 			'redo',
-		]
+		],
+		uploadImageUrl: null,
 	};
 
 	var settings = this.settings = Object.assign(defaultSettings, settings);
@@ -218,6 +221,57 @@ function chunchunmaru(containerId, settings) {
 	else {
 		this.container.appendChild(defaultChild);
 	}
+
+	// File input
+	this.fileInput = document.createElement('input');
+	this.fileInput.type = 'file';
+	this.fileInput.style.display = 'none';
+
+	this.fileInput.addEventListener('change', () => {
+		const fileInput = this.fileInput;
+		const uploadImageUrl = this.settings.uploadImageUrl;
+
+		if (fileInput.files && fileInput.files[0]) {
+			const file = fileInput.files[0];
+			const fileReader = new FileReader();
+
+			fileReader.addEventListener('load', async (fileReaderEvent) => {
+				// if upload url is provided
+				if (uploadImageUrl) {
+					const formData = new FormData();
+
+					formData.append('image', file);
+					if (settings.csrfToken) {
+						formData.append('csrfmiddlewaretoken', settings.csrfToken);
+					}
+
+					const response = await fetch(uploadImageUrl, {
+						method: 'POST',
+						credentials: 'same-origin',
+						body: formData
+					});
+
+					if (response.ok) {
+						const responseJson = await response.json();
+						console.log(responseJson);
+						this.insertString(`\n![](${responseJson})\n`);
+					}
+					else {
+						throw response.text;
+					}
+				}
+				// else: use base64
+				else {
+					const base64image = fileReaderEvent.target.result;
+					this.insertString(`![](${base64image})`);
+				}
+			});
+
+			fileReader.readAsDataURL(file);
+		}
+	});
+
+	this.container.appendChild(this.fileInput);
 
 	/**
 	 * Keyboard & Undo Redo events
@@ -416,7 +470,7 @@ function chunchunmaru(containerId, settings) {
 		},
 		'uploadImage': {
 			action: () => {
-				this.wrapSelection("![image](", ")");
+				this.fileInput.click();
 			},
 			icon: "mdi mdi-image-plus",
 			name: "add_photo_alternate",
