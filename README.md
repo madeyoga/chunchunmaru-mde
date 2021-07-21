@@ -64,15 +64,15 @@ chunchunmaru markdown editor settings and default values:
 	  name: "editor",
 	  placeholder: "Start writting!",
 	},
-	csrfToken: null,				// Will be used when uploading image to imageUploadUrl setting.
+	csrfToken: null, // Will be used when uploading image to imageUploadUrl setting.
 	gfm: true,
-	imageUploadUrl: null			// Upload url.
-	livePreview: false,				// Requires marked
+	imageUploadUrl: null // Upload url.
+	livePreview: false, // Requires marked
 	livePreviewContainer: "",
-	previewCodeHighlight: false,	// Requires highlight.js
+	previewCodeHighlight: false, // Requires highlight.js
 	sanitize: true,
 	saveHTML: false,
-	toolbars: [						// Remove item to exclude.
+	toolbars: [ // Remove item to exclude.
 	  'bold',
 	  'italic',
 	  'strikethrough',
