@@ -34,7 +34,7 @@ https://github.com/madeyoga/chunchunmaru-mde/releases
 ```
 
 ### Image Upload
-chunchunmaru will use `fetch` api to post image to `imageUploadUrl`. 
+chunchunmaru will use `fetch` api to post image to `imageUploadUrl`. if `imageUploadUrl` is null, uploaded image will be converted into base64 string.
 
 Settings
 ```js
@@ -64,9 +64,9 @@ chunchunmaru markdown editor settings and default values:
 	  name: "editor",
 	  placeholder: "Start writting!",
 	},
-	csrfToken: null,				// if provided, token will be used when uploading image to imageUploadUrl setting.
+	csrfToken: null,				// Will be used when uploading image to imageUploadUrl setting.
 	gfm: true,
-	imageUploadUrl: null			// Upload url. Uploaded image will use base64 instead if imageUploadUrl is null.
+	imageUploadUrl: null			// Upload url.
 	livePreview: false,				// Requires marked
 	livePreviewContainer: "",
 	previewCodeHighlight: false,	// Requires highlight.js
