@@ -18,7 +18,7 @@ Github Download
 https://github.com/madeyoga/chunchunmaru-mde/releases
 
 ## Usages
-**Create a basic chunchunmaru markdown editor**
+### Create a basic chunchunmaru markdown editor
 ```html
 <!-- Load chunchunmaru theme -->
 <link rel="stylesheet" type="text/css" href="dist/chunchunmaru-mde-dracula.min.css">
@@ -33,6 +33,27 @@ https://github.com/madeyoga/chunchunmaru-mde/releases
 </script>
 ```
 
+### Image Upload
+chunchunmaru will use `fetch` api to post image to `imageUploadUrl`. 
+
+Settings
+```js
+{
+	csrfToken: "x#90#alj$%...", // if your server requires csrf token to post
+	imageUploadUrl: "yourwebsite.com/api/post_image/",
+}
+```
+
+JSON data
+```js
+{
+	success: 0 | 1, 
+	message: "upload success or upload fail, error message, etc.",
+	url: "yourwebsite.com/uploaded/image.png"
+}
+```
+
+
 ### Settings
 chunchunmaru markdown editor settings and default values:
 
@@ -43,13 +64,15 @@ chunchunmaru markdown editor settings and default values:
 	  name: "editor",
 	  placeholder: "Start writting!",
 	},
+	csrfToken: null,				// if provided, token will be used when uploading image to imageUploadUrl setting.
 	gfm: true,
-	livePreview: false,		// Requires marked
+	imageUploadUrl: null			// Upload url. Uploaded image will use base64 instead if imageUploadUrl is null.
+	livePreview: false,				// Requires marked
 	livePreviewContainer: "",
 	previewCodeHighlight: false,	// Requires highlight.js
 	sanitize: true,
 	saveHTML: false,
-	toolbars: [			// Remove item to exclude.
+	toolbars: [						// Remove item to exclude.
 	  'bold',
 	  'italic',
 	  'strikethrough',
@@ -58,6 +81,7 @@ chunchunmaru markdown editor settings and default values:
 	  'blockquote',
 	  'code',
 	  'image',
+	  'uploadImage'
 	  '|',
 	  'center',
 	  'ol',
@@ -72,7 +96,7 @@ chunchunmaru markdown editor settings and default values:
 	  '|',
 	  'undo',
 	  'redo',
-	]
+	],
 };
 ```
 
