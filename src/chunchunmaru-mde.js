@@ -48,7 +48,7 @@ function chunchunmaru(containerId, settings) {
 			'undo',
 			'redo',
 		],
-		uploadImageUrl: null,
+		imageUploadUrl: null,
 	};
 
 	var settings = this.settings = Object.assign(defaultSettings, settings);
@@ -229,7 +229,7 @@ function chunchunmaru(containerId, settings) {
 
 	this.fileInput.addEventListener('change', () => {
 		const fileInput = this.fileInput;
-		const uploadImageUrl = this.settings.uploadImageUrl;
+		const imageUploadUrl = this.settings.imageUploadUrl;
 
 		if (fileInput.files && fileInput.files[0]) {
 			const file = fileInput.files[0];
@@ -237,7 +237,7 @@ function chunchunmaru(containerId, settings) {
 
 			fileReader.addEventListener('load', async (fileReaderEvent) => {
 				// if upload url is provided
-				if (uploadImageUrl) {
+				if (imageUploadUrl) {
 					const formData = new FormData();
 
 					formData.append('image', file);
@@ -245,7 +245,7 @@ function chunchunmaru(containerId, settings) {
 						formData.append('csrfmiddlewaretoken', settings.csrfToken);
 					}
 
-					const response = await fetch(uploadImageUrl, {
+					const response = await fetch(imageUploadUrl, {
 						method: 'POST',
 						credentials: 'same-origin',
 						body: formData
@@ -254,7 +254,7 @@ function chunchunmaru(containerId, settings) {
 					if (response.ok) {
 						const responseJson = await response.json();
 						console.log(responseJson);
-						this.insertString(`\n![](${responseJson})\n`);
+						this.insertString(`\n![](${responseJson.url})\n`);
 					}
 					else {
 						throw response.text;
