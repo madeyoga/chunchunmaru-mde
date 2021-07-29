@@ -588,9 +588,14 @@ function chunchunmaru(containerId, settings) {
 				this.toolbar.appendChild(hr);
 			}
 		}
+
 		this.toolbar.addEventListener('click', () => {
 			if (settings.livePreviewContainer)
 				this.previewContainer.innerHTML = this.getHTML();
+		});
+
+		this.toolbar.addEventListener('mousedown', function (e) {
+			e.preventDefault();
 		});
 	}
 
