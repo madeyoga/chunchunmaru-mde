@@ -454,7 +454,7 @@ function chunchunmaru(containerId, settings) {
 		},
 		'code': {
 			action: () => {
-				this.wrapSelection("```python\n", "\n```");
+				this.wrapSelection("\n```python\n", "\n```\n");
 			},
 			icon: "mdi mdi-code-braces",
 			name: "code",
