@@ -66,7 +66,7 @@ chunchunmaru markdown editor settings and default values:
 	},
 	csrfToken: null, // Will be used when uploading image to imageUploadUrl setting.
 	gfm: true,
-	imageUploadUrl: null // Upload url.
+	imageUploadUrl: null, // Upload url.
 	livePreview: false, // Requires marked
 	livePreviewContainer: "",
 	previewCodeHighlight: false, // Requires highlight.js
