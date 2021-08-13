@@ -462,7 +462,7 @@ function chunchunmaru(containerId, settings) {
 		},
 		'image': {
 			action: () => {
-				this.wrapSelection("![image](", ")", 'put_your_image_url_here');
+				this.wrapSelection("![your image description](", ")", 'put_your_image_url_here');
 			},
 			icon: "mdi mdi-image",
 			name: "image",
