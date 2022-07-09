@@ -5,11 +5,6 @@
 	<title>chunchunmaru-mde</title>
 	<meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
 
-	<!-- Dependencies -->
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.7.2/styles/dracula.min.css" integrity="sha512-UPcL+5Ec/OV1+OGGgpK9ZS1NLz/sXczHAYUkSaSMQjgIYufontU+rYGAkK9B//Oze4cFTLfLnzNtsI+cG2FwjQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-
-	<link id="theme" rel="stylesheet" type="text/css" href="src/chunchunmaru-mde-default.css">
-
 	<style>
 		td, th {
 			border: 1px solid #ddd;
@@ -28,73 +23,22 @@
 			color: white;
 		}
 	</style>
+
+	<link rel="stylesheet" href="dist/index.css">
 </head>
 <body>
 <h1>Chunchunmaru Markdown Editor Demo</h1>
 
-<!-- <p contenteditable="true">This is an editable paragraph.</p> -->
-<h1>Minimum settings</h1>
-<div id="minimum-editor-container" name="minimum-editor-container">
-	<!-- Server-side render markdown text -->
-	<textarea name="test" id="test" cols="30" rows="5"></textarea>
-</div>
-
-<h1>Full Featured</h1>
-<h4 style="margin-bottom: 8px;">Change Theme</h4>
-<select id="theme-select" style="margin-bottom: 24px;">
-	<option value="src/chunchunmaru-mde-default.css">Default</option>
-	<option value="src/chunchunmaru-mde-dracula.css">Dracula</option>
-</select>
-
-<div id="editor-container" name="editor-container">
-	<!-- Server-side render markdown text -->
-	<textarea name="test" id="test" cols="30" rows="5">Text from server</textarea>
-</div>
+<div id="editor-container" name="editor-container" class="ce-container"></div>
 
 <h2>Preview:</h2>
 
 <div id="preview"></div>
-<!-- Dependencies -->
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/dompurify@2.2.8/dist/purify.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.7.2/highlight.min.js"></script>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 
-<script type="text/javascript" src="src/chunchunmaru-mde.js"></script>
-<script type="text/javascript">
-	var minimumSettings = {
-		gfm: false,
-		livePreview: false,
-		atLink: false,
-		sanitize: false,
-		toolbar: [
-			'bold',
-			'italic',
-			'|',
-			'link',
-			'blockquote',
-			'image',
-		]
-	}
-	var minimumEditor = new chunchunmaru("minimum-editor-container", minimumSettings);
-
-	var settings = {
-		livePreview: true,
-		livePreviewContainer: "#preview",
-		previewCodeHighlight: true,
-		atLink: true,
-		atLinkBase: "https://github.com/"
-	}
-	var editor = new chunchunmaru("editor-container", settings);
-</script>
-
+<script src="dist/chunchunmaru.bundle.min.js"></script>
 <script>
-	function switchTheme(event) {
-		var selectedValue = event.target.value;
-		var theme = document.getElementById('theme');
-		theme.href = selectedValue;
-	}
-
-	document.getElementById('theme-select').addEventListener('change', switchTheme);
+	let editor = window.chunchunmaru('editor-container')
 </script>
+
 </body>
 </html>
