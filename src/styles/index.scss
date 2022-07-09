@@ -1,0 +1,15 @@
+// theme colors
+$border-color: lightgrey;
+$bg-color: white;
+$error: red;
+
+$base-padding: 0.75rem;
+$base-margin: 0.75rem;
+
+.ce-container {
+  border: 1px solid $border-color;
+}
+
+.cm-focused {
+  outline: none!important;
+}

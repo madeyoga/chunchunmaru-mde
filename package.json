@@ -1,24 +1,44 @@
 {
-  "name": "chunchunmaru-mde",
+  "name": "chunchunmaru",
   "version": "0.0.1",
-  "description": "Simple markdown editor based on vanilla js and marked",
-  "main": "src/chunchunmaru-mde.js",
+  "description": "Markdown editor based on codemirror 6",
+  "main": "src/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "gulp": "gulp",
+    "build": "rimraf dist && tsc && rollup -c rollup.config.js && terser --compress --mangle --output dist/chunchunmaru.bundle.min.js -- dist/chunchunmaru.bundle.js"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/madeyoga/chunchunmaru-mde.git"
   },
   "keywords": [
-    "simple",
     "markdown",
-    "editor"
+    "editor",
+    "codemirror 6"
   ],
   "author": "MadeY <yeogaa02@gmail.com>",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/madeyoga/chunchunmaru-mde/issues"
   },
-  "homepage": "https://github.com/madeyoga/chunchunmaru-mde#readme"
+  "homepage": "https://github.com/madeyoga/chunchunmaru-mde#readme",
+  "dependencies": {
+    "@codemirror/lang-markdown": "6.0.0",
+    "@codemirror/state": "6.1.0",
+    "@codemirror/view": "6.0.2",
+    "@rollup/plugin-node-resolve": "13.3.0",
+    "codemirror": "6.0.1",
+    "rollup": "2.75.7",
+    "terser": "5.14.1"
+  },
+  "devDependencies": {
+    "@open-wc/building-rollup": "2.0.1",
+    "@rollup/plugin-commonjs": "22.0.1",
+    "deepmerge": "4.2.2",
+    "gulp": "4.0.2",
+    "gulp-sass": "5.1.0",
+    "rimraf": "3.0.2",
+    "sass": "1.53.0"
+  }
 }
