@@ -9,7 +9,7 @@ interface ChunchunmaruInterface {
   editor: EditorView
 }
 
-function chunchunmaru(this: ChunchunmaruInterface, containerId: string) {
+function ChunMDE(this: ChunchunmaruInterface, containerId: string) {
   const startState = EditorState.create({
     doc: "Start writing!",
     extensions: [
@@ -29,9 +29,9 @@ function chunchunmaru(this: ChunchunmaruInterface, containerId: string) {
 }
 
 declare global {
-  interface Window { chunchunmaru: typeof chunchunmaru; }
+  interface Window { ChunMDE: typeof ChunMDE; }
 }
 
-window.chunchunmaru = chunchunmaru;
+window.ChunMDE = ChunMDE;
 
-export default chunchunmaru;
+export default ChunMDE;

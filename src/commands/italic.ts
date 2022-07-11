@@ -7,7 +7,7 @@ import { EditorView } from "codemirror"
 
 function italicRange(range: SelectionRange, state: EditorState) {
   const originalText = state.sliceDoc(range.from, range.to)
-  const newText = `_${originalText}_`
+  const newText = `_${originalText.trim()}_`
 
   const transaction = {
     changes: {

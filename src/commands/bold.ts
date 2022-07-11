@@ -7,7 +7,7 @@ import { EditorView } from "codemirror"
 
 function boldRange(range: SelectionRange, state: EditorState) {
   const originalText = state.sliceDoc(range.from, range.to)
-  const newText = `**${originalText}**`
+  const newText = `**${originalText.trim()}**`
 
   const transaction = {
     changes: {

@@ -3,9 +3,9 @@ import {nodeResolve} from "@rollup/plugin-node-resolve"
 export default {
   input: "./out-tsc/index.js",
   output: {
-    file: "dist/chunchunmaru.bundle.js",
+    file: "dist/chunmde.bundle.js",
     format: "iife",
-    name: 'chunchunmaru'
+    name: 'chunmde'
   },
   plugins: [commonjs(), nodeResolve()]
 }

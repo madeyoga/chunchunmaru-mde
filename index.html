@@ -24,7 +24,7 @@
 		}
 	</style>
 
-	<link rel="stylesheet" href="dist/index.css">
+	<link rel="stylesheet" href="dist/chunmde.css">
 </head>
 <body>
 <h1>Chunchunmaru Markdown Editor Demo</h1>
@@ -35,9 +35,12 @@
 
 <div id="preview"></div>
 
-<script src="dist/chunchunmaru.bundle.min.js"></script>
+<script 
+	src="https://cdn.jsdelivr.net/npm/chunmde@0.0.2/dist/chunmde.bundle.min.js" 
+	integrity="sha256-yzLDdPhXM/yy7q2a+WCwCCxb9y3sp3f0seP/pOJhFWA=" 
+	crossorigin="anonymous"></script>
 <script>
-	let editor = window.chunchunmaru('editor-container')
+	let editor = new ChunMDE('editor-container')
 </script>
 
 </body>

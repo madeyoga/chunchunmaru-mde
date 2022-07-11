@@ -1,12 +1,12 @@
 {
-  "name": "chunchunmaru",
-  "version": "0.0.1",
+  "name": "chunmde",
+  "version": "0.0.2",
   "description": "Markdown editor based on codemirror 6",
-  "main": "src/index.js",
+  "main": "dist/chunmde.bundle.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "gulp": "gulp",
-    "build": "rimraf dist && tsc && rollup -c rollup.config.js && terser --compress --mangle --output dist/chunchunmaru.bundle.min.js -- dist/chunchunmaru.bundle.js"
+    "build": "rimraf dist && tsc && rollup -c rollup.config.js && terser --compress --mangle --output dist/chunmde.bundle.min.js -- dist/chunmde.bundle.js"
   },
   "repository": {
     "type": "git",
@@ -16,6 +16,12 @@
     "markdown",
     "editor",
     "codemirror 6"
+  ],
+  "files": [
+    "src/",
+    "dist/",
+    "CHANGELOG.md",
+    "README.md"
   ],
   "author": "MadeY <yeogaa02@gmail.com>",
   "license": "MIT",
