@@ -1,6 +1,6 @@
 {
   "name": "chunmde",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Markdown editor based on codemirror 6",
   "main": "dist/chunmde.bundle.js",
   "scripts": {
@@ -43,6 +43,7 @@
     "@rollup/plugin-commonjs": "22.0.1",
     "deepmerge": "4.2.2",
     "gulp": "4.0.2",
+    "gulp-rename": "2.0.0",
     "gulp-sass": "5.1.0",
     "rimraf": "3.0.2",
     "sass": "1.53.0"
