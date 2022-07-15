@@ -4,19 +4,22 @@ import {
   SelectionRange
 } from "@codemirror/state"
 import { EditorView } from "codemirror"
+import { trimSelection } from "./Utilities"
 
 function boldRange(range: SelectionRange, state: EditorState) {
   const originalText = state.sliceDoc(range.from, range.to)
-  const newText = `**${originalText.trim()}**`
+
+  const {text, rangeFrom, rangeTo } = trimSelection(originalText, range)
+
+  const newText = `**${text}**`
 
   const transaction = {
     changes: {
-      from: range.from,
+      from: rangeFrom,
       insert: newText,
-      to: range.to,
+      to: rangeTo,
     },
-    range: EditorSelection.range(range.from, range.to + 4),
-    selection: { anchor: range.from + 4 }
+    range: EditorSelection.range(rangeFrom + 2, rangeTo + 2),
   }
 
   return transaction

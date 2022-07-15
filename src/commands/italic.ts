@@ -4,19 +4,22 @@ import {
   SelectionRange 
 } from "@codemirror/state"
 import { EditorView } from "codemirror"
+import { trimSelection } from "./Utilities"
 
 function italicRange(range: SelectionRange, state: EditorState) {
   const originalText = state.sliceDoc(range.from, range.to)
-  const newText = `_${originalText.trim()}_`
+
+  const {text, rangeFrom, rangeTo } = trimSelection(originalText, range)
+
+  const newText = `_${text}_`
 
   const transaction = {
     changes: {
-      from: range.from,
+      from: rangeFrom,
       insert: newText,
-      to: range.to,
+      to: rangeTo,
     },
-    range: EditorSelection.range(range.from, range.to + 2),
-    selection: { anchor: range.from + 2 }
+    range: EditorSelection.range(rangeFrom + 1, rangeTo + 1),
   }
 
   return transaction
