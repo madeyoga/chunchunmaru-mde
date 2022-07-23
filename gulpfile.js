@@ -14,4 +14,4 @@ function watchTask() {
   watch(['./src/styles/index.scss'], buildStyles)
 }
 
-exports.default = series(buildStyles, watchTask)
+exports.default = series(buildStyles)
