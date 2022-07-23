@@ -2,7 +2,7 @@
 <html>
 <head>
 	<meta charset="utf-8">
-	<title>chunchunmaru-mde</title>
+	<title>chunmde demo</title>
 	<meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
 
 	<style>
@@ -24,23 +24,25 @@
 		}
 	</style>
 
-	<link rel="stylesheet" href="dist/chunmde.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/chunmde@0.0.6/dist/chunmde.min.css" integrity="sha256-l5ojMthyyeqOk74XBxCdVq1ru8FyoBBBww8L0hVVNF8=" crossorigin="anonymous">
+	<script defer src="https://code.iconify.design/1/1.0.6/iconify.min.js"></script>
 </head>
 <body>
-<h1>Chunchunmaru Markdown Editor Demo</h1>
+<textarea id="initialContent" style="display: none;">Test initial content</textarea>
 
-<div id="editor-container" name="editor-container" class="ce-container"></div>
+<h1>ChunMDE Demo</h1>
+
+<div id="editor-container" name="editor-container"></div>
 
 <h2>Preview:</h2>
 
 <div id="preview"></div>
 
-<script 
-	src="https://cdn.jsdelivr.net/npm/chunmde@0.0.2/dist/chunmde.bundle.min.js" 
-	integrity="sha256-yzLDdPhXM/yy7q2a+WCwCCxb9y3sp3f0seP/pOJhFWA=" 
-	crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/chunmde@0.0.6/dist/chunmde.bundle.min.js" integrity="sha256-BTc9bhXWVSrIEVxjXcQhC5bfoeC6ucl85F+8pgruG0k=" crossorigin="anonymous"></script>
 <script>
-	let editor = new ChunMDE('editor-container')
+	let editor = new ChunMDE('editor-container', {
+		doc: initialContent.value,
+	})
 </script>
 
 </body>
