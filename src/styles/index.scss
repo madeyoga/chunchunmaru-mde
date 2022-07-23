@@ -1,15 +1,50 @@
 // theme colors
 $border-color: lightgrey;
-$bg-color: white;
+$bg-color: inherit;
+$bg-color-hover: lightgrey;
 $error: red;
+$font-color: #5f6368;
 
 $base-padding: 0.75rem;
 $base-margin: 0.75rem;
 
-.ce-container {
+.chunmde-container {
   border: 1px solid $border-color;
 }
 
 .cm-focused {
   outline: none!important;
+}
+
+.cm-gutters {
+  background-color: $bg-color!important;
+}
+
+.chunmde-toolbar {
+  flex: 0 1 100%;
+	min-width: 0;
+	padding: 8px;
+	border-bottom: 1px solid $border-color;
+}
+
+.chunmde-toolbar button {
+	padding: 4px;
+	height: 24px;
+	width: 24px;
+	border-style: none;
+  transition: all 0.28s;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	border-radius: 25%;
+	color: $font-color;
+	background-color: $bg-color;
+	cursor: pointer;
+	margin-right: 8px;
+}
+
+.chunmde-toolbar button:hover {
+	background-color: $bg-color-hover;
+  transition: all 0.28s;
 }
