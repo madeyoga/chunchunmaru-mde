@@ -1,16 +1,18 @@
 import { markdown, markdownLanguage } from "@codemirror/lang-markdown"
 import { EditorView, basicSetup } from 'codemirror'
-import { EditorState, EditorStateConfig, Extension } from '@codemirror/state'
+import { EditorState, EditorStateConfig } from '@codemirror/state'
 import { keymap, ViewUpdate } from '@codemirror/view'
-import { italic, italicKeyBinding } from './commands/Italic'
-import { bold, boldKeyBinding } from "./commands/Bold"
-import { code, codeKeyBinding } from "./commands/Code"
-import { link, linkKeyBinding } from "./commands/Link"
-import { quote, quoteKeyBinding } from "./commands/Quote"
-import { ul, ulKeyBinding } from "./commands/BulletedList"
-import { heading } from "./commands/Heading"
+import { italicKeyBinding } from './commands/Italic'
+import { boldKeyBinding } from "./commands/Bold"
+import { codeKeyBinding } from "./commands/Code"
+import { linkKeyBinding } from "./commands/Link"
+import { quoteKeyBinding } from "./commands/Quote"
+import { ulKeyBinding } from "./commands/BulletedList"
+import { Toolbar } from "./components/Toolbar"
 
 interface ChunInterface {
+  dom: Element,
+  toolbar: Toolbar,
   editor: EditorView,
   getValue: () => string,
 }
@@ -49,83 +51,27 @@ function ChunMDE(this: ChunInterface, containerId: string, customConfig?: ChunCo
   }
 
   /** CodeMirror6's EditorView */
-  this.editor = new EditorView({
+  const editorView = new EditorView({
     // parent: parentElement,
     state: EditorState.create(config)
   })
 
-  const toolbarButtons = [
-    {
-      text: "Add heading text",
-      icon: "mdi-format-header-3",
-      action: () => heading(this.editor),
-    },
-    {
-      text: "Add bold text, <Ctrl+b>",
-      icon: "mdi-format-bold",
-      action: () => bold(this.editor),
-    },
-    {
-      text: "Add italic text, <Ctrl+i>",
-      icon: "mdi-format-italic",
-      action: () => italic(this.editor),
-    },
-    {
-      text: "Add a quote, <Ctrl+Shift+.>",
-      icon: "mdi-format-quote-close",
-      action: () => quote(this.editor),
-    },
-    {
-      text: "Add code, <Ctrl+e>",
-      icon: "mdi-code-tags",
-      action: () => code(this.editor),
-    },
-    {
-      text: "Add a link, <Ctrl+k>",
-      icon: "mdi-link-variant",
-      action: () => link(this.editor),
-    },
-    {
-      text: "Add a bulleted list, <Ctrl+Shift+8>",
-      icon: "mdi-format-list-bulleted",
-      action: () => ul(this.editor),
-    },
-  ]
-
   parentElement.className += " chunmde-container"
 
   // toolbar
-  const toolbarElement = document.createElement("div") as Element
-  toolbarElement.className += " chunmde-toolbar"
+  const toolbar = new Toolbar(editorView)
 
-  for (let btnSpec of toolbarButtons) {
-    const buttonElement = document.createElement("button")
-
-    const icon = document.createElement("span")
-    icon.className += "iconify "
-    icon.setAttribute("data-icon", btnSpec.icon)
-    icon.setAttribute("data-inline", "false")
-    icon.setAttribute("data-width", "16")
-    icon.setAttribute("data-height", "16")
-
-    buttonElement.appendChild(icon)
-    buttonElement.onclick = btnSpec.action
-    buttonElement.setAttribute("alt", btnSpec.text)
-    buttonElement.title = btnSpec.text
-    // buttonElement.className += " chunmde-button-icon"
-
-    toolbarElement.appendChild(buttonElement)
-  }
-
-  parentElement.appendChild(toolbarElement)
-
-  // editor
-  parentElement.appendChild(this.editor.dom)
+  parentElement.appendChild(toolbar.dom)
+  parentElement.appendChild(editorView.dom)
 
   /** Shortcut to get the editor value */
   this.getValue = () => {
-    return this.editor.state.doc.toString()
+    return editorView.state.doc.toString()
   }
+
+  this.dom = parentElement
+  this.toolbar = toolbar
+  this.editor = editorView
 }
 
 declare global {
