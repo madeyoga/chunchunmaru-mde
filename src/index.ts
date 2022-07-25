@@ -19,6 +19,7 @@ interface ChunInterface {
 
 interface ChunConfig extends EditorStateConfig {
   onUpdateListener?: (update: ViewUpdate) => void,
+  lineWrapping?: boolean,
 }
 
 function ChunMDE(this: ChunInterface, containerId: string, customConfig?: ChunConfig) {
@@ -45,6 +46,9 @@ function ChunMDE(this: ChunInterface, containerId: string, customConfig?: ChunCo
   if (customConfig !== undefined) {
     if (customConfig.onUpdateListener !== undefined) {
       defaultExtensions.push(EditorView.updateListener.of(customConfig.onUpdateListener!))
+    }
+    if (customConfig.lineWrapping) {
+      defaultExtensions.push(EditorView.lineWrapping)
     }
     config.doc = customConfig.doc ? customConfig.doc : config.doc
     config.extensions = customConfig.extensions ? customConfig.extensions : defaultExtensions
