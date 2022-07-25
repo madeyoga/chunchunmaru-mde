@@ -24,7 +24,7 @@
 		}
 	</style>
 
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/chunmde@0.0.6/dist/chunmde.min.css" integrity="sha256-l5ojMthyyeqOk74XBxCdVq1ru8FyoBBBww8L0hVVNF8=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/chunmde/dist/chunmde.min.css">
 	<script defer src="https://code.iconify.design/1/1.0.6/iconify.min.js"></script>
 </head>
 <body>
@@ -38,11 +38,12 @@
 
 <div id="preview"></div>
 
-<script src="https://cdn.jsdelivr.net/npm/chunmde@0.0.6/dist/chunmde.bundle.min.js" integrity="sha256-BTc9bhXWVSrIEVxjXcQhC5bfoeC6ucl85F+8pgruG0k=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/chunmde/dist/chunmde.bundle.min.js"></script>
 <script>
-	let editor = new ChunMDE('editor-container', {
-		doc: initialContent.value,
-	})
+  let editor = new ChunMDE('editor-container', {
+    doc: initialContent.value,
+    lineWrapping: true,
+  })
 </script>
 
 </body>
