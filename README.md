@@ -4,8 +4,6 @@
 
 Markdown editor based on [codemirror6](https://codemirror.net/)
 
-[Demo page](https://madeyoga.github.io/chunchunmaru-mde/)
-
 ## Features
 - Key bindings
 - Toolbars
