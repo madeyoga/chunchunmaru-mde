@@ -1,4 +1,4 @@
-import { EditorView } from "codemirror"
+import { EditorView } from "@codemirror/view"
 import { italic } from '../commands/Italic'
 import { bold } from "../commands/Bold"
 import { code } from "../commands/Code"
@@ -73,6 +73,7 @@ export class Toolbar {
       buttonElement.onclick = btnSpec.action
       buttonElement.setAttribute("alt", btnSpec.text)
       buttonElement.title = btnSpec.text
+      buttonElement.setAttribute("type", "button")
   
       toolbarElement.appendChild(buttonElement)
     }
