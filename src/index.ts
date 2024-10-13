@@ -1,7 +1,8 @@
 import { markdown, markdownLanguage } from "@codemirror/lang-markdown"
-import { EditorView, basicSetup } from 'codemirror'
 import { EditorState, EditorStateConfig } from '@codemirror/state'
-import { keymap, ViewUpdate } from '@codemirror/view'
+import { keymap, ViewUpdate, EditorView } from '@codemirror/view'
+import { basicSetup } from 'codemirror'
+import { indentWithTab } from "@codemirror/commands"
 import { italicKeyBinding } from './commands/Italic'
 import { boldKeyBinding } from "./commands/Bold"
 import { codeKeyBinding } from "./commands/Code"
@@ -19,21 +20,24 @@ interface ChunInterface {
 
 interface ChunConfig extends EditorStateConfig {
   onUpdateListener?: (update: ViewUpdate) => void,
+  indentWithTab?: boolean,
   lineWrapping?: boolean,
 }
 
 function ChunMDE(this: ChunInterface, containerId: string, customConfig?: ChunConfig) {
   const parentElement = document.getElementById(containerId) as Element
 
+  const defaultKeybinds = [
+    italicKeyBinding,
+    boldKeyBinding,
+    codeKeyBinding,
+    linkKeyBinding,
+    quoteKeyBinding,
+    ulKeyBinding,
+  ]
+
   const defaultExtensions = [
-    keymap.of([
-      italicKeyBinding,
-      boldKeyBinding,
-      codeKeyBinding,
-      linkKeyBinding,
-      quoteKeyBinding,
-      ulKeyBinding,
-    ]),
+    keymap.of(defaultKeybinds),
     markdown({ base: markdownLanguage }),
     basicSetup,
   ]
@@ -43,12 +47,15 @@ function ChunMDE(this: ChunInterface, containerId: string, customConfig?: ChunCo
     extensions: defaultExtensions,
   }
 
-  if (customConfig !== undefined) {
-    if (customConfig.onUpdateListener !== undefined) {
+  if (customConfig) {
+    if (customConfig.onUpdateListener) {
       defaultExtensions.push(EditorView.updateListener.of(customConfig.onUpdateListener!))
     }
     if (customConfig.lineWrapping) {
       defaultExtensions.push(EditorView.lineWrapping)
+    }
+    if (customConfig.indentWithTab) {
+      defaultExtensions.push(keymap.of([indentWithTab]))
     }
     config.doc = customConfig.doc ? customConfig.doc : config.doc
     config.extensions = customConfig.extensions ? customConfig.extensions : defaultExtensions

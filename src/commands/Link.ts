@@ -3,7 +3,7 @@ import {
   EditorState,
   SelectionRange
 } from "@codemirror/state"
-import { EditorView } from "codemirror"
+import { EditorView } from "@codemirror/view"
 import { trimSelection } from "./Utilities"
 
 function linkRange(range: SelectionRange, state: EditorState) {
