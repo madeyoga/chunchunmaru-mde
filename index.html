@@ -1,51 +1,60 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-	<meta charset="utf-8">
-	<title>chunmde demo</title>
-	<meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+  <meta charset="utf-8">
+  <title>chunmde demo</title>
+  <meta name="viewport"
+    content="width=device-width, height=device-height, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
 
-	<style>
-		td, th {
-			border: 1px solid #ddd;
-			padding: 8px;
-		}
+  <style>
+    td,
+    th {
+      border: 1px solid #ddd;
+      padding: 8px;
+    }
 
-		tr:nth-child(even){background-color: #f2f2f2;}
+    tr:nth-child(even) {
+      background-color: #f2f2f2;
+    }
 
-		tr:hover {background-color: #ddd;}
+    tr:hover {
+      background-color: #ddd;
+    }
 
-		th {
-			padding-top: 12px;
-			padding-bottom: 12px;
-			text-align: left;
-			background-color: #04AA6D;
-			color: white;
-		}
-	</style>
+    th {
+      padding-top: 12px;
+      padding-bottom: 12px;
+      text-align: left;
+      background-color: #04AA6D;
+      color: white;
+    }
+  </style>
 
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/chunmde@0.0.10/dist/chunmde.min.css" integrity="sha256-fUiW+ymb7dqOOzdeaiW5NScqR0ABmMy0+ItZ35XnUzs=" crossorigin="anonymous">
-	<script defer src="https://code.iconify.design/1/1.0.6/iconify.min.js"></script>
+  <link rel="stylesheet" href="dist/chunmde.min.css" />
+  <script src="https://code.iconify.design/iconify-icon/2.1.0/iconify-icon.min.js"></script>
 </head>
+
 <body>
-<textarea id="initialContent" style="display: none;">Test initial content</textarea>
+  <textarea id="initialContent" style="display: none;">Test initial content</textarea>
 
-<h1>ChunMDE Demo</h1>
-<form action="#">
-  <div id="editor-container" name="editor-container"></div>
-</form>
-<h2>Preview:</h2>
+  <h1>ChunMDE Demo</h1>
+  <form action="#">
+    <div id="editor-container" name="editor-container"></div>
+  </form>
+  <h2>Preview:</h2>
 
-<div id="preview"></div>
+  <div id="preview"></div>
 
-<script src="https://cdn.jsdelivr.net/npm/chunmde@0.0.10/dist/chunmde.bundle.min.js" integrity="sha256-hN/OviE9JALvYBfl343sy3fPuvD5Q6gpKVPatPEVFsU=" crossorigin="anonymous"></script>
-<script>
-  let editor = new ChunMDE('editor-container', {
-    doc: initialContent.value,
-    lineWrapping: true,
-    indentWithTab: true,
-  })
-</script>
+  <script src="dist/chunmde.bundle.min.js"></script>
+  <script>
+    let editor = new ChunMDE('editor-container', {
+      doc: initialContent.value,
+      lineWrapping: true,
+      indentWithTab: true,
+    })
+  </script>
 
 </body>
+
 </html>
