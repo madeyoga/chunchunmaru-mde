@@ -1,6 +1,7 @@
 # chunchunmaru-mde
 [![](https://data.jsdelivr.com/v1/package/npm/chunmde/badge)](https://www.jsdelivr.com/package/npm/chunmde)
 ![npm](https://img.shields.io/npm/dt/chunmde?style=flat-square)
+![NPM Version](https://img.shields.io/npm/v/chunmde)
 
 Markdown editor based on [codemirror6](https://codemirror.net/)
 
