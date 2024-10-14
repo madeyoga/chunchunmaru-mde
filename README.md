@@ -18,12 +18,6 @@ Markdown editor based on [codemirror6](https://codemirror.net/)
   - link <Ctrl+k>
   - Unordered list <Ctrl+Shift+8>
 
-## Installation
-
-```
-npm i chunmde
-```
-
 ## Usage
 
 #### Browser
@@ -33,11 +27,11 @@ npm i chunmde
 <head>
   <meta charset="utf-8"/>
   <title>Markdown editor in the browser</title>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/chunmde@0.0.6/dist/chunmde.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/chunmde@x.y.z/dist/chunmde.min.css">
 </head>
 <body>
   <div id="editor-container"></div>
-  <script src="https://cdn.jsdelivr.net/npm/chunmde@0.0.6/dist/chunmde.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chunmde@x.y.z/dist/chunmde.bundle.min.js"></script>
   <script>
     const editor = new ChunMDE('editor-container')
     const value = editor.getValue()

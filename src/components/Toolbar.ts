@@ -21,37 +21,37 @@ export class Toolbar {
     this.buttonActions = [
       {
         text: "Add heading text",
-        icon: "mdi-format-header-3",
+        icon: "mdi:format-header-3",
         action: () => heading(editor),
       },
       {
         text: "Add bold text, <Ctrl+b>",
-        icon: "mdi-format-bold",
+        icon: "mdi:format-bold",
         action: () => bold(editor),
       },
       {
         text: "Add italic text, <Ctrl+i>",
-        icon: "mdi-format-italic",
+        icon: "mdi:format-italic",
         action: () => italic(editor),
       },
       {
         text: "Add a quote, <Ctrl+Shift+.>",
-        icon: "mdi-format-quote-close",
+        icon: "mdi:format-quote-close",
         action: () => quote(editor),
       },
       {
         text: "Add code, <Ctrl+e>",
-        icon: "mdi-code-tags",
+        icon: "mdi:code-tags",
         action: () => code(editor),
       },
       {
         text: "Add a link, <Ctrl+k>",
-        icon: "mdi-link-variant",
+        icon: "mdi:link-variant",
         action: () => link(editor),
       },
       {
         text: "Add a bulleted list, <Ctrl+Shift+8>",
-        icon: "mdi-format-list-bulleted",
+        icon: "mdi:format-list-bulleted",
         action: () => ul(editor),
       },
     ]
@@ -62,12 +62,13 @@ export class Toolbar {
     for (let btnSpec of this.buttonActions) {
       const buttonElement = document.createElement("button")
   
-      const icon = document.createElement("span")
+      // iconify web component
+      const icon = document.createElement("iconify-icon")
       icon.className += "iconify "
-      icon.setAttribute("data-icon", btnSpec.icon)
-      icon.setAttribute("data-inline", "false")
-      icon.setAttribute("data-width", "16")
-      icon.setAttribute("data-height", "16")
+      icon.setAttribute("icon", btnSpec.icon)
+      icon.setAttribute("inline", "false")
+      icon.setAttribute("width", "16")
+      icon.setAttribute("height", "16")
   
       buttonElement.appendChild(icon)
       buttonElement.onclick = btnSpec.action
